@@ -1,5 +1,6 @@
 # "Comidinhas Veganas" - Grupo do Alemão
-Escreva um ou dois parágrafos resumindo o objetivo do seu projeto.
+Este sistema permite aos restaurantes aproveitar ao máximo as suas mesas, garantindo que os clientes são servidos de acordo com as suas necessidades e o número de mesas disponíveis. A linha fornece uma maneira simplificada de lidar com picos de demanda, enquanto os aplicativos registram informações importantes para gerenciar o tráfego de clientes. Através deste processo, os restaurantes proporcionam uma melhor experiência aos clientes, reduzem o tempo de espera e aumentam a eficiência.
+
 
 ## Alunos integrantes da equipe
 
