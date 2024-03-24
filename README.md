@@ -1,4 +1,4 @@
-# Nome do projeto
+# "Comidinhas Veganas" - Grupo do Alemão
 Escreva um ou dois parágrafos resumindo o objetivo do seu projeto.
 
 ## Alunos integrantes da equipe
