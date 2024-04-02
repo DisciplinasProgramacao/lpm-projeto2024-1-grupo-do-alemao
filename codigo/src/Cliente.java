@@ -1,3 +1,4 @@
+package src;
 class Cliente {
     private static int cod = 0;
     private String nome;
