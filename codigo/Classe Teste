@@ -1,0 +1,35 @@
+import static org.junit.jupiter.api.Assertions.*;
+
+import java.time.LocalDate;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+class RequisicaoReservaTest {
+
+    private RequisicaoReserva requisicao;
+
+    @BeforeEach
+    void setUp() {
+        requisicao = new RequisicaoReserva("Item 1", LocalDate.now());
+    }
+
+    @Test
+    void testRequisicaoReserva() {
+        assertNotNull(requisicao);
+        assertEquals(1, requisicao.getId());
+        assertEquals("Item 1", requisicao.getNomeItem());
+        assertTrue(requisicao.isAtiva());
+    }
+
+    @Test
+    void testGetDataReserva() {
+        assertNotNull(requisicao.getDataReserva());
+    }
+
+    @Test
+    void testCancelar() {
+        requisicao.cancelar();
+        assertFalse(requisicao.isAtiva());
+    }
+}
