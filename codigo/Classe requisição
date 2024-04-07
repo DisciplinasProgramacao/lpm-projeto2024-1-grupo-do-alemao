@@ -6,12 +6,16 @@ public class RequisicaoReserva {
     private String nomeItem;
     private LocalDate dataReserva;
     private boolean ativa;
+    private int pessoas;
+    private Cliente cliente;
 
-    public RequisicaoReserva(String nomeItem, LocalDate dataReserva) {
+    public RequisicaoReserva(String nomeItem, LocalDate dataReserva, int pessoas, Cliente cliente) {
         this.id = proximoId++;
         this.nomeItem = nomeItem;
         this.dataReserva = dataReserva;
         this.ativa = true;
+        this.pessoas = pessoas;
+        this.cliente = cliente;
     }
 
     public int getId() {
@@ -30,6 +34,18 @@ public class RequisicaoReserva {
         return ativa;
     }
 
+    public void cancelar() {
+        this.ativa = false;
+    }
+
+    public int getPessoas() {
+        return pessoas;
+    }
+
+    public Cliente getCliente() {
+        return cliente;
+    }
+}
     public void cancelar() {
         this.ativa = false;
     }
