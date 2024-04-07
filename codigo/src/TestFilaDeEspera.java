@@ -27,8 +27,7 @@ public class TestFilaDeEspera {
     }
 
     // Teste para verificar se é removida apenas a primeira requisição da fila que
-    // tenha
-    // o número de pessoas definido
+    // tenha o número de pessoas definido
     @Test
     public void testRemoveApenasAPrimeiraReq() {
         FilaDeEspera fila = new FilaDeEspera();
