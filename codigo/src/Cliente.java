@@ -1,13 +1,21 @@
 package src;
-class Cliente {
+
+/**
+ * Esta classe tem a responsabilidade de armazenar os dados pessoais de um
+ * cliente do restaurante.
+ */
+public class Cliente {
     private static int cod = 0;
     private String nome;
     private String telefone;
 
-    /*
-     * Construtor da classe Cliente recebe como parâmetro uma string nome
-     * e uma com o telefone do Cliente. E também, gera um código inteiro para
-     * o cliente.
+    /**
+     * Construtor da classe Cliente, que faz a validação se os dados passados não
+     * são nulos. Caso não sejam, gera um código inteiro para o cliente.
+     * @param n   Representa o nome do cliente, cujo tamanho deve ser maior que 3
+     *            caracteres
+     * @param tel Representa o telefone do cliente, cujo tamanho deve ser maior ou igual a
+     *            8 caracteres
      */
     public Cliente(String n, String tel) {
         if (n != null && tel != null) {
@@ -17,10 +25,10 @@ class Cliente {
         }
     }
 
-    /*
-     * Método recebe uma string nome do cliente como parâmetro e atribui
-     * o valor recebido à variável Nome, se este tiver mais que 3
-     * caracteres.
+    /**
+     * Método que atribui um valor recebido à variável Nome, se este tiver mais que
+     * 3 caracteres.
+     * @param nome Representa o nome do cliente
      */
     public void setNome(String nome) {
         if (nome.length() > 3) {
@@ -28,10 +36,10 @@ class Cliente {
         }
     }
 
-    /*
-     * Método recebe uma string telefone do cliente como parâmetro e atribui
-     * o valor recebido à variável Telefone, se este tiver 8 ou mais
-     * caracteres.
+    /**
+     * Método que atribui um valor recebido à variável Telefone, se este tiver 8 ou
+     * mais caracteres.
+     * @param telefone Representa o telefone do cliente
      */
     public void setTelefone(String telefone) {
         if (telefone.length() >= 8) {
@@ -39,17 +47,29 @@ class Cliente {
         }
     }
 
-    // Método retorna um número inteiro que é o código do Cliente.
+    /**
+     * Método que retorna o código do Cliente.
+     * 
+     * @return Um número inteiro que é o código do Cliente
+     */
     public int getCod() {
         return cod;
     }
 
-    // Método retorna uma cadeia de caracteres que é o nome do Cliente.
+    /**
+     * Método que retorna o nome do Cliente.
+     * 
+     * @return Uma string que é o nome do Cliente
+     */
     public String getNome() {
         return nome;
     }
 
-    // Método retorna uma cadeia de caracteres que é o telefone do Cliente.
+    /**
+     * Método que retorna o telefone do Cliente.
+     * 
+     * @return Uma string que é o telefone do Cliente
+     */
     public String getTelefone() {
         return telefone;
     }
