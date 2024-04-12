@@ -6,7 +6,7 @@ public class Mesa {
     private int cod;
     private int capacidade;
     private Cliente cliente;
-    private List<RequisicaoPorMesa> pessoas;
+    private List<RequisicaoReserva> pessoas;
 
     /**
      * Construtor da classe Mesa.
@@ -91,7 +91,7 @@ public class Mesa {
      */
     public boolean estaDisponivel(int qtPessoas) {
         int totalPessoas = qtPessoas;
-        for (RequisicaoPorMesa requisicao : pessoas) {
+        for (RequisicaoReserva requisicao : pessoas) {
             totalPessoas += requisicao.getPessoas();
         }
         return totalPessoas <= capacidade && cliente == null;
