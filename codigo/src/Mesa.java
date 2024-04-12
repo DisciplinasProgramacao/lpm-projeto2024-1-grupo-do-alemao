@@ -8,51 +8,87 @@ public class Mesa {
     private Cliente cliente;
     private List<RequisicaoPorMesa> pessoas;
 
-    // Construtor da classe Mesa
-    
+    /**
+     * Construtor da classe Mesa.
+     * @param cod O código da mesa.
+     * @param capacidade A capacidade máxima de pessoas que a mesa pode acomodar.
+     */
     public Mesa(int cod, int capacidade) {
         this.cod = cod;
-        this.capacidade = capacidade;
+        setCapacidade(capacidade);
         this.cliente = null;
-        this.pessoas = new ArrayList<>(); 
+        this.pessoas = new ArrayList<>();
     }
 
+    /**
+     * Obtém o código da mesa.
+     * @return O código da mesa.
+     */
     public int getCod() {
         return cod;
     }
 
+    /**
+     * Obtém a capacidade máxima de pessoas que a mesa pode acomodar.
+     * @return A capacidade da mesa.
+     */
     public int getCapacidade() {
         return capacidade;
     }
 
+    /**
+     * Obtém o nome da mesa.
+     * @return O nome da mesa.
+     */
     public String getNome() {
         return "Mesa " + cod;
     }
 
+    /**
+     * Define a capacidade máxima de pessoas que a mesa pode acomodar.
+     * @param capacidade A nova capacidade da mesa.
+     */
     public void setCapacidade(int capacidade) {
-        this.capacidade = capacidade;
+        if (capacidade <= 4 || capacidade <= 6 || capacidade <= 8) {
+            this.capacidade = capacidade;
+        } else {
+            System.out.println("A capacidade da mesa deve ser até 4, até 6 ou até 8 pessoas.");
+        }
     }
 
-    // Método para mudar o status da mesa (ocupada/desocupada)
-    // Verifica se a mesa está disponível para ser ocupada. Se sim, define um novo cliente (ocupada),
-    // se não, remove o cliente da mesa (desocupada) e limpa a lista de pessoas.
-    // Retorna true se a mesa está ocupada e false se estiver desocupada.
-    
-    public boolean mudarStatusMesa() {
-        if (estaDisponivel(0)) {
-            cliente = new Cliente(); 
+    /**
+     * Obtém o cliente atualmente associado à mesa.
+     * @return O cliente associado à mesa, ou null se a mesa estiver vazia.
+     */
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    /**
+     * Muda o status da mesa para ocupada ou liberada.
+     * @param cliente O cliente que está ocupando a mesa, ou null se a mesa estiver sendo liberada.
+     * @return true se a mesa estava disponível antes da operação e false caso contrário.
+     */
+    public boolean mudarStatusMesa(Cliente cliente) {
+        boolean estavaDisponivel = estaDisponivel(0);
+        
+        if (estavaDisponivel) {
+            this.cliente = cliente;
         } else {
-            cliente = null; 
-            pessoas.clear(); 
+            this.cliente = null;
+            pessoas.clear();
         }
         
-        return cliente != null;
+        boolean agoraEstaDisponivel = estaDisponivel(0);
+        
+        return estavaDisponivel && !agoraEstaDisponivel;
     }
-    
- // Verifica se a mesa está disponível para uma certa quantidade de pessoas.
- // Retorna true se o número total de pessoas na mesa (incluindo as requisições) é menor ou igual
- // à capacidade da mesa e se a mesa está desocupada. Caso contrário, retorna false.
-    
+
+    /**
+     * Verifica se a mesa está disponível para uma certa quantidade de pessoas.
+     * @param qtPessoas A quantidade de pessoas que deseja ocupar a mesa.
+     * @return true se a mesa estiver disponível para a quantidade especificada de pessoas, false caso contrário.
+     */
     public boolean estaDisponivel(int qtPessoas) {
         int totalPessoas = qtPessoas;
         for (RequisicaoPorMesa requisicao : pessoas) {
@@ -60,5 +96,4 @@ public class Mesa {
         }
         return totalPessoas <= capacidade && cliente == null;
     }
-
 }
