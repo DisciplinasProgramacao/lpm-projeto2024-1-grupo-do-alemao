@@ -42,7 +42,6 @@ public void removerCliente(String nome) {
             return;
         }
     }
-    System.out.println("Cliente não encontrado.");
 }
 
 
@@ -75,8 +74,6 @@ public void removerMesa(int cod) {
     }
     if (mesaRemover != null) {
         mesas.remove(mesaRemover);
-    } else {
-        System.out.println("Mesa não encontrada.");
     }
 }
 
@@ -89,19 +86,16 @@ public void removerMesa(int cod) {
  * @param codMesa O código da mesa a ser alocada.
  * @param nomeCliente O nome do cliente para quem a mesa será alocada.
  */
-public void alocarMesa(int codMesa, String nomeCliente) {
+public void alocarMesa(Requisicao requisicao) {
     for (Mesa mesa : mesas) {
         if (mesa.getCod() == codMesa) {
-            if (mesa.estaDisponivel()) {
+            if (mesa.estaDisponivel() && capacidadeMesa == requisicao.pessoa) {
                 mesa.setCliente(nomeCliente);
-                System.out.println("Mesa alocada para " + nomeCliente);
-            } else {
-                System.out.println("A mesa já está ocupada.");
+               
             }
             return;
         }
     }
-    System.out.println("Mesa não encontrada.");
 }
 /**
  * Libera uma mesa com base no código da mesa fornecido.
@@ -109,11 +103,11 @@ public void alocarMesa(int codMesa, String nomeCliente) {
  * 
  * @param codMesa O código da mesa a ser liberada.
  */
-public void liberarMesa(int codMesa,Cliente cliente) {
+public void liberarMesa(int codMesa) {
     for (Mesa mesa : mesas) {
         if (mesa.getCod() == codMesa) {
             if (!mesa.estaDisponivel()) {
-                mesa.mudarStatusMesa();
+                requisicao.mudarStatusMesa();
                 System.out.println("Mesa liberada.");
             } else {
                 System.out.println("A mesa já está livre.");
@@ -124,4 +118,5 @@ public void liberarMesa(int codMesa,Cliente cliente) {
     System.out.println("Mesa não encontrada.");
 }
  //#endregion
+ //
 }
