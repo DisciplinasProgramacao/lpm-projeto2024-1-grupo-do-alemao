@@ -109,11 +109,11 @@ public void alocarMesa(int codMesa, String nomeCliente) {
  * 
  * @param codMesa O código da mesa a ser liberada.
  */
-public void liberarMesa(int codMesa) {
+public void liberarMesa(int codMesa,Cliente cliente) {
     for (Mesa mesa : mesas) {
         if (mesa.getCod() == codMesa) {
             if (!mesa.estaDisponivel()) {
-                mesa.liberar();
+                mesa.mudarStatusMesa();
                 System.out.println("Mesa liberada.");
             } else {
                 System.out.println("A mesa já está livre.");
