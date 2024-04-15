@@ -14,7 +14,7 @@ public class restaurante {
     
    //#endregion
     
-//Não há necessidade de um construtor,por isso não foi implementado.
+//Não há necessidade de um construtor,por isso não foi implementado
     
  //#region métodos
     
