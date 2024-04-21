@@ -5,8 +5,8 @@ import java.time.LocalDate;
  * Cada instância desta classe possui um identificador único e um status de disponibilidade.
  */
 public class Mesa {
-    private int id; // Identificador único da mesa
-    private boolean disponivel; // Indica se a mesa está disponível ou não
+    private int id;
+    private boolean disponivel; 
 
     /**
      * Construtor da classe Mesa.
@@ -41,6 +41,13 @@ public class Mesa {
     public void setDisponivel(boolean disponivel) {
         this.disponivel = disponivel;
     }
+    
+    /**
+     * Método para marcar a mesa como disponível novamente.
+     */
+    public void liberar() {
+        this.disponivel = true;
+    }
 }
 
 /**
@@ -49,13 +56,13 @@ public class Mesa {
  * Esta classe controla também o status da reserva.
  */
 public class RequisicaoReserva {
-    private static int proximoId = 1; // Variável estática para gerar identificadores únicos automaticamente
-    private int id; // Identificador único da reserva
-    private LocalDate dataReserva; // Data da reserva
-    private boolean ativa; // Indica se a reserva está ativa ou foi cancelada
-    private int pessoas; // Número de pessoas na reserva
-    private Cliente cliente; // Cliente associado à reserva
-    private Mesa mesa; // Mesa reservada
+    private static int proximoId = 1; 
+    private int id; 
+    private LocalDate dataReserva; 
+    private boolean ativa; 
+    private int pessoas; 
+    private Cliente cliente; 
+    private Mesa mesa; 
 
     /**
      * Construtor da classe RequisicaoReserva.
@@ -67,13 +74,13 @@ public class RequisicaoReserva {
      * @param mesa A mesa reservada.
      */
     public RequisicaoReserva(LocalDate dataReserva, int pessoas, Cliente cliente, Mesa mesa) {
-        this.id = proximoId++; // Gera um novo identificador único
+        this.id = proximoId++; 
         this.dataReserva = dataReserva;
-        this.ativa = true; // Marca a reserva como ativa
+        this.ativa = true; 
         this.pessoas = pessoas;
         this.cliente = cliente;
         this.mesa = mesa;
-        this.mesa.setDisponivel(false); // Marca a mesa como indisponível
+        this.mesa.setDisponivel(false); 
     }
 
     /**
@@ -105,8 +112,8 @@ public class RequisicaoReserva {
      * Marca a reserva como cancelada e marca a mesa associada como disponível.
      */
     public void cancelar() {
-        this.ativa = false; // Marca a reserva como cancelada
-        this.mesa.setDisponivel(true); // Marca a mesa como disponível novamente
+        this.ativa = false; 
+        this.mesa.liberar(); 
     }
 
     /**
