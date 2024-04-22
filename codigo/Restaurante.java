@@ -87,11 +87,11 @@ public void removerMesa(int cod) {
  * @param nomeCliente O nome do cliente para quem a mesa será alocada.
  */
 public void alocarMesa(RequisicaoReserva requisicao) {
-    int capacidadeMesa = requisicao.getPessoas(); 
+    int pessoas = requisicao.getPessoas(); 
     String nomeCliente = requisicao.getCliente().getNome(); 
 
     for (Mesa mesa : mesas) {
-        if (mesa.getCod() == requisicao.getMesa().getCod()) { 
+        if (mesa.getCod() == requisicao.getMesa().getCod() && pessoas <= mesa.getCapacidade()) { 
             if (mesa.estaDisponivel(capacidadeMesa)) { 
                 mesa.mudarStatusMesa(requisicao.getCliente());
                 return; 
