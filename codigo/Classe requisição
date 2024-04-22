@@ -1,54 +1,28 @@
 import java.time.LocalDate;
 
+
 /**
- * Classe Mesa representa uma mesa em um restaurante.
- * Cada instância desta classe possui um identificador único e um status de disponibilidade.
+ * Libera uma mesa com base no código da mesa fornecido.
+ * Se a mesa estiver ocupada, ela será liberada. Caso contrário, uma mensagem será exibida informando que a mesa já está livre.
+ * 
+ * @param codMesa O código da mesa a ser liberada.
  */
-public class Mesa {
-    private int id;
-    private boolean disponivel; 
 
-    /**
-     * Construtor da classe Mesa.
-     * Inicializa uma mesa com o identificador fornecido e a marca como disponível.
-     * @param id O identificador único da mesa.
-     */
-    public Mesa(int id) {
-        this.id = id;
-        this.disponivel = true;
+public void liberarMesa(int codMesa) {
+    for (Mesa mesa : mesas) {
+        if (mesa.getCod() == codMesa) {
+            if (!mesa.estaDisponivel()) {
+                requisicao.mudarStatusMesa();
+                System.out.println("Mesa liberada.");
+            } else {
+                System.out.println("A mesa já está livre.");
+            }
+            return;
+        }
     }
-
-    /**
-     * Método para obter o identificador da mesa.
-     * @return O identificador único da mesa.
-     */
-    public int getId() {
-        return id;
-    }
-
-    /**
-     * Método para verificar se a mesa está disponível.
-     * @return true se a mesa estiver disponível, false caso contrário.
-     */
-    public boolean isDisponivel() {
-        return disponivel;
-    }
-
-    /**
-     * Método para definir o status de disponibilidade da mesa.
-     * @param disponivel O novo status de disponibilidade da mesa.
-     */
-    public void setDisponivel(boolean disponivel) {
-        this.disponivel = disponivel;
-    }
-    
-    /**
-     * Método para marcar a mesa como disponível novamente.
-     */
-    public void liberar() {
-        this.disponivel = true;
-    }
+    System.out.println("Mesa não encontrada.");
 }
+
 
 /**
  * Classe RequisicaoReserva representa uma solicitação de reserva em um restaurante.
@@ -140,3 +114,5 @@ public class RequisicaoReserva {
         return mesa;
     }
 }
+
+
