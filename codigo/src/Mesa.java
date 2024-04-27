@@ -85,15 +85,12 @@ public class Mesa {
     }
 
     /**
-     * Verifica se a mesa está disponível para uma certa quantidade de pessoas.
+     * Verifica se a mesa está disponível para uma determinada quantidade de pessoas.
+     *
      * @param qtPessoas A quantidade de pessoas que deseja ocupar a mesa.
-     * @return true se a mesa estiver disponível para a quantidade especificada de pessoas, false caso contrário.
+     * @return true se a mesa estiver disponível para a quantidade especificada de pessoas e não estiver ocupada por um cliente, false caso contrário.
      */
     public boolean estaDisponivel(int qtPessoas) {
-        int totalPessoas = qtPessoas;
-        for (RequisicaoReserva requisicao : pessoas) {
-            totalPessoas += requisicao.getPessoas();
-        }
-        return totalPessoas <= capacidade && cliente == null;
-    }
+        return qtPessoas <= capacidade && cliente == null;
+}
 }
