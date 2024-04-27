@@ -11,6 +11,7 @@ public class Restaurante {
     static List<Mesa> mesas = new ArrayList<>();
     FilaDeEspera filaDeEspera = new FilaDeEspera();
     List<Cliente> clientes = new ArrayList<>();
+    Mesa mesa;
     
    //#endregion
     
@@ -50,7 +51,7 @@ public void removerCliente(String nome) {
     *
     *@param cod O código da mesa que deverá ser adicionada
     *@param capacidade A capacidade da mesa
-    *@param cliente O nome do cliente associado à mesa
+    *@param disponivel A disponibilidade da mesa
 */
 public void adicionarMesa(int cod, int capacidade,boolean disponivel) {
     Mesa mesa= new Mesa(cod,capacidade,disponivel);
@@ -83,15 +84,15 @@ public void removerMesa(int cod) {
  * Se a mesa estiver disponível, ela será alocada para o cliente especificado. Caso contrário, uma mensagem será exibida informando que a mesa já está ocupada.
  * Se a mesa não for encontrada,será exibida uma mensagem de que a mesa não foi encontrada
  *
- * @param codMesa O código da mesa a ser alocada.
- * @param nomeCliente O nome do cliente para quem a mesa será alocada.
+ * @param requisicao ele puxa a requisição da mesa e aloca de acordo com os dados que foram passados para ela
  */
 public void alocarMesa(RequisicaoReserva requisicao) {
     int pessoas = requisicao.getPessoas(); 
+    int capacidadeMesa = mesa.getCapacidade();
     String nomeCliente = requisicao.getCliente().getNome(); 
 
     for (Mesa mesa : mesas) {
-        if (mesa.getCod() == requisicao.getMesa().getCod() && pessoas <= mesa.getCapacidade()) { 
+        if (mesa.getCod() == requisicao.getMesa().getCod() && capacidadeMesa <= pessoas) { 
             if (mesa.estaDisponivel(capacidadeMesa)) { 
                 mesa.mudarStatusMesa(requisicao.getCliente());
                 return; 
@@ -120,6 +121,9 @@ public void liberarMesa(int codMesa) {
         }
     }
 }
+/**
+ * Inicializa a mesa com todos os dados fornecidos de acordo com o requisito do trabalho,o código, a capacidade e se está disponível
+ */
 public static void inicializaMesas(){
 mesas.add(new Mesa(1, 4, true));
 mesas.add(new Mesa(2, 4, true));
