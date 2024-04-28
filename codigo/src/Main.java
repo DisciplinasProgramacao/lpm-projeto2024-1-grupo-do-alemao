@@ -1,3 +1,4 @@
+import java.time.LocalDate;
 import java.util.Scanner;
 
 public class Main {
@@ -43,6 +44,9 @@ public class Main {
                 case 6:
                     adicionarProdutos(scanner, restaurante);
                     break;
+                case 7:
+                    exibirMenuProdutos();
+                    break;
                 case 0:
                     sair = true;
                     scanner.close();
@@ -64,6 +68,7 @@ public class Main {
         System.out.println("4 - Encerrar Mesa");
         System.out.println("5 - Processar Fila");
         System.out.println("6 - Adicionar Produtos");
+        System.out.println("7 - Exibir Menu de Produtos");
         System.out.println("0 - Sair");
         System.out.print("Digite sua Opção: ");
     }
@@ -171,5 +176,13 @@ public class Main {
         for (Produto produto : produtosEscolhidos) {
             restaurante.adicionarProdutoAoPedido(produto);
         }
+    }
+
+    /**
+     * Exibe o menu de produtos disponíveis.
+     */
+    private static void exibirMenuProdutos() {
+        System.out.println("Menu de Produtos:");
+        menu.mostrarMenu();
     }
 }
