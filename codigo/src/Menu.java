@@ -28,39 +28,37 @@ public class Menu {
 
             switch (opcao) {
                 case 1:
-                    produtos[posicao] = new MoquecaDePalmito();
+                    produtos[posicao] = new MoquecaDePalmito("Moqueca de Palmito", 32);
                     break;
                 case 2:
-                    produtos[posicao] = new FalafelAssado();
+                    produtos[posicao] = new FalafelAssado("Falafel Assado", 20);
                     break;
                 case 3:
-                    produtos[posicao] = new SaladaMacarrao();
+                    produtos[posicao] = new SaladaMacarrao("Salada Primavera com Macarrão Konjac", 25);
                     break;
                 case 4:
-                    produtos[posicao] = new EscondidinhoInhame();
+                    produtos[posicao] = new EscondidinhoInhame("Escondidinho de Inhame", 18);
                     break;
                 case 5:
-                    produtos[posicao] = new StrogonoffeCogumelos();
+                    produtos[posicao] = new StrogonoffeCogumelos("Strogonoffe de Cogumelos", 35);
                     break;
                 case 6:
-                    produtos[posicao] = new CacarolaLegumes();
+                    produtos[posicao] = new CacarolaLegumes("Caçarola de Legumes", 22);
                     break;
                 case 7:
-                    produtos[posicao] = new Agua();
+                    produtos[posicao] = new Agua("água", 3);
                     break;
                 case 8:
-                    produtos[posicao] = new CopoDeSuco();
+                    produtos[posicao] = new CopoDeSuco("Copo de Suco", 7);
                     break;
                 case 9:
-                    produtos[posicao] = new RefrigeranteOrganico();
+                    produtos[posicao] = new RefrigeranteOrganico("Refrigerante Orgânico", 7);
                     break;
                 case 10:
-                    produtos[posicao] = new CervejaVegana();
+                    produtos[posicao] = new CervejaVegana("Cerveja Vegana", 9);
                     break;
                 case 11:
-                    produtos[posicao] = new VinhoVegano();
-                    break;
-                default:
+                    produtos[posicao] = new VinhoVegano("Taça de vinho vegano", 18);
                     break;
             }
             posicao++;
@@ -70,4 +68,3 @@ public class Menu {
         return produtos;
     }
 }
-
