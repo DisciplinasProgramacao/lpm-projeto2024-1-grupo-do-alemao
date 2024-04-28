@@ -87,10 +87,10 @@ public class Mesa {
     /**
      * Verifica se a mesa está disponível para uma determinada quantidade de pessoas.
      *
-     * @param qtPessoas A quantidade de pessoas que deseja ocupar a mesa.
+     * @param pessoas A quantidade de pessoas que deseja ocupar a mesa.
      * @return true se a mesa estiver disponível para a quantidade especificada de pessoas e não estiver ocupada por um cliente, false caso contrário.
      */
-    public boolean estaDisponivel(int qtPessoas) {
-        return qtPessoas <= capacidade && cliente == null;
+    public boolean estaDisponivel(int pessoas) {
+        return pessoas <= capacidade && cliente == null;
 }
 }
