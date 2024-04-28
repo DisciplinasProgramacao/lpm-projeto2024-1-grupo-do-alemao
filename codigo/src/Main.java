@@ -167,4 +167,9 @@ public class Main {
      */
     private static void adicionarProdutos(Scanner scanner, Restaurante restaurante) {
         System.out.println("Escolha os produtos:");
-        Produto[] produtosEscolhidos = menu.escolherProd
+        Produto[] produtosEscolhidos = menu.escolherProdutos();
+        for (Produto produto : produtosEscolhidos) {
+            restaurante.adicionarProdutoAoPedido(produto);
+        }
+    }
+}
