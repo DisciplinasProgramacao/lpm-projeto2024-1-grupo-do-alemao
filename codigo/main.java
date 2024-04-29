@@ -61,9 +61,10 @@ public class main {
      * @param restaurante O restaurante cujas mesas serão verificadas.
      */
     private static void verificarMesas(Restaurante restaurante) {
+        System.out.println("Caso o cliente esteja null,ignore porque a mesa não está alocada");
         for (Mesa mesa : restaurante.mesas) {
             System.out.println("Mesa " + mesa.getCod() + " - Capacidade: " + mesa.getCapacidade() + " - "
-                    + (mesa.isDisponivel() ? "Disponível" : "Ocupada"));
+                    + (mesa.isDisponivel() ? "Disponível" : "Ocupada") + " - e o cliente alocado é o = " +(mesa.getCliente()));
         }
     }
 
@@ -101,7 +102,7 @@ public class main {
         System.out.print("Digite o número de pessoas: ");
         int numPessoas = scanner.nextInt();
         restaurante.adicionarCliente(nomeCliente, telefoneCliente);
-        RequisicaoReserva requisicao = new RequisicaoReserva(dataReserva, numPessoas, cliente, new Mesa(0, numPessoas,true));
+        RequisicaoReserva requisicao = new RequisicaoReserva(dataReserva, numPessoas, cliente, new Mesa(0, numPessoas,true,cliente));
         restaurante.filaDeEspera.addRequisicaoNaFila(requisicao);
         System.out.println("Requisição de mesa adicionada com sucesso!");
     }
@@ -144,7 +145,7 @@ public class main {
     
         Cliente cliente = new Cliente(nomeCliente, "");
 
-        Mesa mesa = new Mesa(codMesa, pessoas, true);
+        Mesa mesa = new Mesa(codMesa, pessoas, true, cliente);
     
         RequisicaoReserva requisicao = new RequisicaoReserva(LocalDate.now(), pessoas, cliente, mesa);
 
