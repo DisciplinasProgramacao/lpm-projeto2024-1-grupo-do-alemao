@@ -1,4 +1,4 @@
-public class EscondidinhoInhame extends Prato{
+public class EscondidinhoInhame extends Produto{
     
     public EscondidinhoInhame(String nome, double preco){
         super(nome,preco);

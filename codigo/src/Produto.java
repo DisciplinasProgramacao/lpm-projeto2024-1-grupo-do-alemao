@@ -40,21 +40,3 @@ public class Produto {
     }
 }
 
-/**
- * Esta classe representa as comidas do restaurante.
- */
-class Prato extends Produto {
-
-    public Prato(String nome, double preco) {
-        super(nome, preco);
-    }
-}
-
-/**
- * Esta classe representa as bebidas do restaurante.
- */
-class Bebida extends Produto {
-    public Bebida(String nome, double preco) {
-        super(nome, preco);
-    }
-}
