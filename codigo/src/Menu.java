@@ -9,21 +9,7 @@ public class Menu {
      
     public Produto[] escolherProdutos() {
         do {
-            System.out.println("Comidas:");
-            System.out.println("1.Moqueca de Palmito");
-            System.out.println("2.Falafel Assado");
-            System.out.println("3.Salada Primavera com Macarrão Konjac");
-            System.out.println("4.Escondidinho de Inhame");
-            System.out.println("5.Strogonoff de Cogumelos");
-            System.out.println("6.Caçarola de Legumes");
-            System.out.println();
-            System.out.println("Bebidas:");
-            System.out.println("7.Água");
-            System.out.println("8.Copo de suco");
-            System.out.println("9.Refrigerante orgânico");
-            System.out.println("10.Cerveja vegana");
-            System.out.println("11.Taça de vinho vegano");
-            System.out.println("0.Sair");
+           mostrarMenu();
             opcao = Integer.parseInt (leitorTeclado.nextLine());
 
             switch (opcao) {
