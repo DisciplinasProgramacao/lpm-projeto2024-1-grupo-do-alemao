@@ -10,17 +10,21 @@ public class Mesa {
     private List<RequisicaoReserva> pessoas;
     private boolean disponivel;
 
+
     /**
      * Construtor da classe Mesa.
      * @param cod O código da mesa.
      * @param capacidade A capacidade máxima de pessoas que a mesa pode acomodar.
+     * @param disponivel Boolean se está disponível ou nao.
+     * @param cliente Nome do cliente em que esta alocado ou nao.
      */
-    public Mesa(int cod, int capacidade,boolean disponivel) {
+    public Mesa(int cod, int capacidade,boolean disponivel,Cliente cliente) {
         this.cod = cod;
         setCapacidade(capacidade);
         this.cliente = null;
         this.pessoas = new ArrayList<>();
         this.disponivel = disponivel;
+        this.cliente = cliente;
     }
 
     public void setDisponivel(boolean disponivel) {
@@ -72,6 +76,13 @@ public class Mesa {
      */
     public Cliente getCliente() {
         return cliente;
+    }
+     /**
+     * Obtém o cliente atualmente associado à mesa.
+     * @return O cliente associado à mesa, ou null se a mesa estiver vazia.
+     */
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
     }
 
     /**
