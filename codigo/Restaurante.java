@@ -2,7 +2,7 @@ import java.util.List;
 import java.util.ArrayList;
 
 /**
-*Primeira versão da classe restaurante,esta classe permite ao usuário ou gerente adicionar clientes e remover clientes de uma lista,adicionar e remover mesa de uma lista,alocar mesa para um cliente específico e liberar mesa caso ela esteja alocada
+*Segunda versão da classe restaurante,esta classe permite ao usuário ou gerente adicionar clientes e remover clientes de uma lista,adicionar e remover mesa de uma lista,alocar mesa para um cliente específico e liberar mesa caso ela esteja alocada
 *Deve ser melhorada com o tempo,de acordo com oque o professor colocará
 */
 public class Restaurante {
@@ -11,7 +11,6 @@ public class Restaurante {
     static List<Mesa> mesas = new ArrayList<>();
     FilaDeEspera filaDeEspera = new FilaDeEspera();
     List<Cliente> clientes = new ArrayList<>();
-    Mesa mesa;
     
    //#endregion
     
@@ -53,8 +52,8 @@ public void removerCliente(String nome) {
     *@param capacidade A capacidade da mesa
     *@param disponivel A disponibilidade da mesa
 */
-public void adicionarMesa(int cod, int capacidade,boolean disponivel) {
-    Mesa mesa= new Mesa(cod,capacidade,disponivel);
+public void adicionarMesa(int cod, int capacidade,boolean disponivel,Cliente cliente) {
+    Mesa mesa= new Mesa(cod,capacidade,disponivel,cliente);
     mesas.add(mesa);
 }
 
@@ -88,19 +87,18 @@ public void removerMesa(int cod) {
  */
 public void alocarMesa(RequisicaoReserva requisicao) {
     int pessoas = requisicao.getPessoas(); 
-    int capacidadeMesa = mesa.getCapacidade();
-    String nomeCliente = requisicao.getCliente().getNome(); 
 
     for (Mesa mesa : mesas) {
-        if (mesa.getCod() == requisicao.getMesa().getCod() && capacidadeMesa <= pessoas) { 
-            if (mesa.estaDisponivel(capacidadeMesa)) { 
+        if (mesa.getCod() == requisicao.getMesa().getCod()) {
+            if (mesa.estaDisponivel(pessoas)) { 
                 mesa.mudarStatusMesa(requisicao.getCliente());
+                mesa.setDisponivel(false);
+                mesa.setCliente(requisicao.getCliente());
                 return; 
             }
-        }else {
-            filaDeEspera.addRequisicaoNaFila(requisicao);
         }
     }
+    filaDeEspera.addRequisicaoNaFila(requisicao);
 }
 
 /**
@@ -115,8 +113,7 @@ public void liberarMesa(int codMesa) {
             if (!mesa.isDisponivel()) {
                 mesa.mudarStatusMesa(null);
                 mesa.liberar();
-            } else {
-            }
+            } 
             return;
         }
     }
@@ -125,16 +122,16 @@ public void liberarMesa(int codMesa) {
  * Inicializa a mesa com todos os dados fornecidos de acordo com o requisito do trabalho,o código, a capacidade e se está disponível
  */
 public static void inicializaMesas(){
-mesas.add(new Mesa(1, 4, true));
-mesas.add(new Mesa(2, 4, true));
-mesas.add(new Mesa(3, 4, true));
-mesas.add(new Mesa(4, 4, true));
-mesas.add(new Mesa(5, 6, true));
-mesas.add(new Mesa(6, 6, true));
-mesas.add(new Mesa(7, 6, true));
-mesas.add(new Mesa(8, 6, true));
-mesas.add(new Mesa(9, 8, true));
-mesas.add(new Mesa(10, 8, true));
+mesas.add(new Mesa(1, 4, true,null));
+mesas.add(new Mesa(2, 4, true,null));
+mesas.add(new Mesa(3, 4, true,null));
+mesas.add(new Mesa(4, 4, true,null));
+mesas.add(new Mesa(5, 6, true,null));
+mesas.add(new Mesa(6, 6, true,null));
+mesas.add(new Mesa(7, 6, true,null));
+mesas.add(new Mesa(8, 6, true,null));
+mesas.add(new Mesa(9, 8, true,null));
+mesas.add(new Mesa(10, 8, true,null));
 }
  //#endregion
  //
