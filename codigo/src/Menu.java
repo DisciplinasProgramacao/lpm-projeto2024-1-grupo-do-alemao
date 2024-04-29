@@ -3,16 +3,25 @@ import java.util.Scanner;
 public class Menu {
     static Scanner leitorTeclado = new Scanner(System.in);
     private int opcao;
-    private Produto[] produtos = new Produto[100];
+    private Produto[] produtos = new Produto[12];
     private int posicao = 0;
 
-     
-    public Produto[] escolherProdutos() {
-        do {
-           mostrarMenu();
-            opcao = Integer.parseInt (leitorTeclado.nextLine());
+    public Menu(){
+        for(int i=1; i<=11;i++)
+            gerarProduto(i);
+    }
 
-            switch (opcao) {
+    public Produto getProduto(int pos){
+        if(pos>=1 && pos<produtos.length)
+            return produtos[pos];
+        else
+            return null;
+    }
+
+   
+    public void gerarProduto(int posicao) {
+        
+            switch (posicao) {
                 case 1:
                     produtos[posicao] = new MoquecaDePalmito("Moqueca de Palmito", 32);
                     break;
@@ -47,12 +56,9 @@ public class Menu {
                     produtos[posicao] = new VinhoVegano("Taça de vinho vegano", 18);
                     break;
             }
-            posicao++;
-        } while (opcao != 0 && posicao < produtos.length);
-
-        leitorTeclado.close();
-        return produtos;
     }
+
+
     public void mostrarMenu() {
         System.out.println("Comidas:");
         System.out.println("1. Moqueca de Palmito");
