@@ -2,7 +2,7 @@
  * Esta classe tem a responsabilidade de armazenar os dados relacionados
  * aos produtos ofertados pelo restaurante.
  */
-public class Produto {
+public abstract class Produto {
     private String nome;
     private double preco;
 
