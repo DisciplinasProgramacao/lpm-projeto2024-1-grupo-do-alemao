@@ -1,5 +1,10 @@
+package Tests;
 import static org.junit.Assert.assertEquals;
 import org.junit.Test;
+
+import Cliente;
+import FilaDeEspera;
+import RequisicaoReserva;
 
 public class TestFilaDeEspera {
 

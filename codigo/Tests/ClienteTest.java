@@ -1,6 +1,8 @@
-package src;
+package Tests;
 import static org.junit.Assert.assertEquals;
 import org.junit.Test;
+
+import Cliente;
 
 public class ClienteTest {
     /*Método que testa a classe cliente quando inserido um nome válido.*/

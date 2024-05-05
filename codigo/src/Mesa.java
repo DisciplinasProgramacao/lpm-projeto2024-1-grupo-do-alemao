@@ -1,25 +1,36 @@
-package src;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class Mesa {
+
     private int cod;
     private int capacidade;
     private Cliente cliente;
     private List<RequisicaoReserva> pessoas;
+    private boolean disponivel;
+
 
     /**
      * Construtor da classe Mesa.
      * @param cod O código da mesa.
      * @param capacidade A capacidade máxima de pessoas que a mesa pode acomodar.
+     * @param disponivel Boolean se está disponível ou nao.
+     * @param cliente Nome do cliente em que esta alocado ou nao.
      */
-    public Mesa(int cod, int capacidade) {
+    public Mesa(int cod, int capacidade,boolean disponivel,Cliente cliente) {
         this.cod = cod;
         setCapacidade(capacidade);
         this.cliente = null;
         this.pessoas = new ArrayList<>();
+        this.disponivel = disponivel;
+        this.cliente = cliente;
     }
 
+    public void setDisponivel(boolean disponivel) {
+        this.disponivel = disponivel;
+    }
+    
     /**
      * Obtém o código da mesa.
      * @return O código da mesa.
@@ -28,6 +39,9 @@ public class Mesa {
         return cod;
     }
 
+    public boolean isDisponivel() {
+        return disponivel;
+    }
     /**
      * Obtém a capacidade máxima de pessoas que a mesa pode acomodar.
      * @return A capacidade da mesa.
@@ -63,6 +77,13 @@ public class Mesa {
     public Cliente getCliente() {
         return cliente;
     }
+     /**
+     * Obtém o cliente atualmente associado à mesa.
+     * @return O cliente associado à mesa, ou null se a mesa estiver vazia.
+     */
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
+    }
 
     /**
      * Muda o status da mesa para ocupada ou liberada.
@@ -85,12 +106,19 @@ public class Mesa {
     }
 
     /**
-     * Verifica se a mesa está disponível para uma determinada quantidade de pessoas.
-     *
-     * @param pessoas A quantidade de pessoas que deseja ocupar a mesa.
-     * @return true se a mesa estiver disponível para a quantidade especificada de pessoas e não estiver ocupada por um cliente, false caso contrário.
+     * Verifica se a mesa está disponível para uma certa quantidade de pessoas.
+     * @param qtPessoas A quantidade de pessoas que deseja ocupar a mesa.
+     * @return true se a mesa estiver disponível para a quantidade especificada de pessoas, false caso contrário.
      */
-    public boolean estaDisponivel(int pessoas) {
-        return pessoas <= capacidade && cliente == null;
-}
+    public boolean estaDisponivel(int qtPessoas) {
+        int totalPessoas = qtPessoas;
+        for (RequisicaoReserva requisicao : pessoas) {
+            totalPessoas += requisicao.getPessoas();
+        }
+        return totalPessoas <= capacidade && cliente == null;
+    }
+
+    public void liberar() {
+        this.disponivel = true;
+    }
 }

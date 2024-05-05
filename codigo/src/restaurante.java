@@ -2,13 +2,13 @@ import java.util.List;
 import java.util.ArrayList;
 
 /**
-*Primeira versão da classe restaurante,esta classe permite ao usuário ou gerente adicionar clientes e remover clientes de uma lista,adicionar e remover mesa de uma lista,alocar mesa para um cliente específico e liberar mesa caso ela esteja alocada
+*Segunda versão da classe restaurante,esta classe permite ao usuário ou gerente adicionar clientes e remover clientes de uma lista,adicionar e remover mesa de uma lista,alocar mesa para um cliente específico e liberar mesa caso ela esteja alocada
 *Deve ser melhorada com o tempo,de acordo com oque o professor colocará
 */
-public class restaurante {
+public class Restaurante {
  //#region atributos
     
-    List<Mesa> mesas = new ArrayList<>();
+    static List<Mesa> mesas = new ArrayList<>();
     FilaDeEspera filaDeEspera = new FilaDeEspera();
     List<Cliente> clientes = new ArrayList<>();
     
@@ -50,10 +50,10 @@ public void removerCliente(String nome) {
     *
     *@param cod O código da mesa que deverá ser adicionada
     *@param capacidade A capacidade da mesa
-    *@param cliente O nome do cliente associado à mesa
+    *@param disponivel A disponibilidade da mesa
 */
-public void adicionarMesa(int cod, int capacidade,String cliente) {
-    Mesa mesa= new Mesa(cod, capacidade, cliente);
+public void adicionarMesa(int cod, int capacidade,boolean disponivel,Cliente cliente) {
+    Mesa mesa= new Mesa(cod,capacidade,disponivel,cliente);
     mesas.add(mesa);
 }
 
@@ -83,20 +83,24 @@ public void removerMesa(int cod) {
  * Se a mesa estiver disponível, ela será alocada para o cliente especificado. Caso contrário, uma mensagem será exibida informando que a mesa já está ocupada.
  * Se a mesa não for encontrada,será exibida uma mensagem de que a mesa não foi encontrada
  *
- * @param codMesa O código da mesa a ser alocada.
- * @param nomeCliente O nome do cliente para quem a mesa será alocada.
+ * @param requisicao ele puxa a requisição da mesa e aloca de acordo com os dados que foram passados para ela
  */
-public void alocarMesa(Requisicao requisicao) {
+public void alocarMesa(RequisicaoReserva requisicao) {
+    int pessoas = requisicao.getPessoas(); 
+
     for (Mesa mesa : mesas) {
-        if (mesa.getCod() == codMesa) {
-            if (mesa.estaDisponivel() && capacidadeMesa == requisicao.pessoa) {
-                mesa.setCliente(nomeCliente);
-               
+        if (mesa.getCod() == requisicao.getMesa().getCod()) {
+            if (mesa.estaDisponivel(pessoas)) { 
+                mesa.mudarStatusMesa(requisicao.getCliente());
+                mesa.setDisponivel(false);
+                mesa.setCliente(requisicao.getCliente());
+                return; 
             }
-            return;
         }
     }
+    filaDeEspera.addRequisicaoNaFila(requisicao);
 }
+
 /**
  * Libera uma mesa com base no código da mesa fornecido.
  * Se a mesa estiver ocupada, ela será liberada. Caso contrário, uma mensagem será exibida informando que a mesa já está livre.
@@ -106,16 +110,28 @@ public void alocarMesa(Requisicao requisicao) {
 public void liberarMesa(int codMesa) {
     for (Mesa mesa : mesas) {
         if (mesa.getCod() == codMesa) {
-            if (!mesa.estaDisponivel()) {
-                requisicao.mudarStatusMesa();
-                System.out.println("Mesa liberada.");
-            } else {
-                System.out.println("A mesa já está livre.");
-            }
+            if (!mesa.isDisponivel()) {
+                mesa.mudarStatusMesa(null);
+                mesa.liberar();
+            } 
             return;
         }
     }
-    System.out.println("Mesa não encontrada.");
+}
+/**
+ * Inicializa a mesa com todos os dados fornecidos de acordo com o requisito do trabalho,o código, a capacidade e se está disponível
+ */
+public static void inicializaMesas(){
+mesas.add(new Mesa(1, 4, true,null));
+mesas.add(new Mesa(2, 4, true,null));
+mesas.add(new Mesa(3, 4, true,null));
+mesas.add(new Mesa(4, 4, true,null));
+mesas.add(new Mesa(5, 6, true,null));
+mesas.add(new Mesa(6, 6, true,null));
+mesas.add(new Mesa(7, 6, true,null));
+mesas.add(new Mesa(8, 6, true,null));
+mesas.add(new Mesa(9, 8, true,null));
+mesas.add(new Mesa(10, 8, true,null));
 }
  //#endregion
  //

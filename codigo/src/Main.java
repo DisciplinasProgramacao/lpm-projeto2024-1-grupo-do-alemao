@@ -75,19 +75,18 @@ public class Main {
 
     /**
      * Mostra o status de todas as mesas do restaurante.
-     * 
      * @param restaurante O restaurante cujas mesas serão verificadas.
      */
     private static void verificarMesas(Restaurante restaurante) {
+        System.out.println("Caso o cliente esteja null,ignore porque a mesa não está alocada");
         for (Mesa mesa : restaurante.mesas) {
             System.out.println("Mesa " + mesa.getCod() + " - Capacidade: " + mesa.getCapacidade() + " - "
-                    + (mesa.isDisponivel() ? "Disponível" : "Ocupada"));
+                    + (mesa.isDisponivel() ? "Disponível" : "Ocupada") + " - e o cliente alocado é o = " +(mesa.getCliente()));
         }
     }
 
     /**
      * Mostra o status da fila de espera do restaurante.
-     * 
      * @param restaurante O restaurante cuja fila de espera será verificada.
      */
     private static void verificarFila(Restaurante restaurante) {
@@ -105,8 +104,7 @@ public class Main {
 
     /**
      * Solicita uma mesa no restaurante.
-     * 
-     * @param scanner    O scanner de entrada.
+     * @param scanner O scanner de entrada.
      * @param restaurante O restaurante onde a mesa será solicitada.
      */
     private static void solicitarMesa(Scanner scanner, Restaurante restaurante) {
@@ -121,15 +119,14 @@ public class Main {
         System.out.print("Digite o número de pessoas: ");
         int numPessoas = scanner.nextInt();
         restaurante.adicionarCliente(nomeCliente, telefoneCliente);
-        RequisicaoReserva requisicao = new RequisicaoReserva(dataReserva, numPessoas, cliente, new Mesa(0, numPessoas));
+        RequisicaoReserva requisicao = new RequisicaoReserva(dataReserva, numPessoas, cliente, new Mesa(0, numPessoas,true,cliente));
         restaurante.filaDeEspera.addRequisicaoNaFila(requisicao);
         System.out.println("Requisição de mesa adicionada com sucesso!");
     }
 
-    /**
+   /**
      * Encerra uma mesa no restaurante.
-     * 
-     * @param scanner    O scanner de entrada.
+     * @param scanner O scanner de entrada.
      * @param restaurante O restaurante onde a mesa será encerrada.
      */
     private static void encerrarMesa(Scanner scanner, Restaurante restaurante) {
@@ -150,10 +147,9 @@ public class Main {
         }
     }
 
-    /**
+     /**
      * Aloca um cliente em uma mesa do restaurante.
-     * 
-     * @param scanner    O scanner de entrada.
+     * @param scanner O scanner de entrada.
      * @param restaurante O restaurante onde a mesa será alocada.
      */
     private static void processarFila(Scanner scanner, Restaurante restaurante) {
@@ -161,7 +157,16 @@ public class Main {
         int codMesa = scanner.nextInt();
         System.out.print("Digite o nome do cliente: ");
         String nomeCliente = scanner.next();
-        restaurante.alocarMesa(codMesa, nomeCliente);
+        System.out.print("Digite a quantidade de pessoas: ");
+        int pessoas = scanner.nextInt();
+    
+        Cliente cliente = new Cliente(nomeCliente, "");
+
+        Mesa mesa = new Mesa(codMesa, pessoas, true, cliente);
+    
+        RequisicaoReserva requisicao = new RequisicaoReserva(LocalDate.now(), pessoas, cliente, mesa);
+
+        restaurante.alocarMesa(requisicao);
     }
 
     /**
