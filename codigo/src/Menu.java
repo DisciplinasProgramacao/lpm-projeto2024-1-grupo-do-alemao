@@ -1,26 +1,45 @@
-import java.util.Scanner;
-
+/**
+ * Classe Menu, responsável por armazenar e exibir os produtos do cardápio do restaurante.
+ */
 public class Menu {
-    static Scanner leitorTeclado = new Scanner(System.in);
-    private int opcao;
-    private Produto[] produtos = new Produto[12];
-    private int posicao = 0;
+     
+    // #region atributos
 
+    private Produto[] produtos = new Produto[12];
+
+    // #endregion
+    
+    // #region métodos
+
+    // #region Construtor
+
+    /**
+     * Construtor simples: popula o array de produtos.
+     */
     public Menu(){
         for(int i=1; i<=11;i++)
             gerarProduto(i);
     }
 
-    public Produto getProduto(int pos){
+    // #endregion
+
+    /**
+     * Método para recuperar um produto de determinada posição do array de produtos.
+     * @param pos A posição da qual se quer obter o produto.
+     * @return Produto, caso tenha sido encontrado, null, caso não.
+     */
+    public String getProduto(int pos){
         if(pos>=1 && pos<produtos.length)
-            return produtos[pos];
+            return produtos[pos].getNome();
         else
             return null;
     }
 
-   
+   /**
+    * Método para alocar um produto no array de produtos.
+    * @param posicao A posição do array de produtos na qual se quer alocar o produto.
+    */
     public void gerarProduto(int posicao) {
-        
             switch (posicao) {
                 case 1:
                     produtos[posicao] = new MoquecaDePalmito("Moqueca de Palmito", 32);
@@ -58,23 +77,18 @@ public class Menu {
             }
     }
 
-
-    public void mostrarMenu() {
-        System.out.println("Comidas:");
-        System.out.println("1. Moqueca de Palmito");
-        System.out.println("2. Falafel Assado");
-        System.out.println("3. Salada Primavera com Macarrão Konjac");
-        System.out.println("4. Escondidinho de Inhame");
-        System.out.println("5. Strogonoff de Cogumelos");
-        System.out.println("6. Caçarola de Legumes");
-        System.out.println();
-        System.out.println("Bebidas:");
-        System.out.println("7. Água");
-        System.out.println("8. Copo de suco");
-        System.out.println("9. Refrigerante orgânico");
-        System.out.println("10. Cerveja vegana");
-        System.out.println("11. Taça de vinho vegano");
-        System.out.println("0. Sair");
-        System.out.print("Digite sua Opção: ");
+    /**
+     * Método para exibir os produtos do array de produtos.
+     * @return Os produtos do array de produtos.
+     */
+    public String mostrarMenu() {
+       String resultado = " ";
+        for(int i = 0; i < produtos.length; i++) {
+            if(produtos[i] != null) {
+                resultado += produtos[i].getNome() + " " + produtos[i].getPreco() + "\n";
+            }    
+       }
+       return resultado;
     }
+    // #endregion
 }
