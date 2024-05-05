@@ -2,28 +2,33 @@ import java.time.LocalDate;
 
 public class TesteRestaurante {
     public static void main(String[] args) {
-       
+        // Criando uma mesa
         Mesa mesa1 = new Mesa();
         mesa1.setCod(1);
         mesa1.setDisponivel(true);
 
-      
+        // Criando um cliente
         Cliente cliente1 = new Cliente("João");
 
-  
+        // Criando uma requisição de reserva
         LocalDate dataReserva = LocalDate.now();
         int pessoas = 4;
         RequisicaoReserva requisicao1 = new RequisicaoReserva(dataReserva, pessoas, cliente1, mesa1);
 
-       
+        // Testando o cancelamento da reserva
         System.out.println("Reserva ativa antes do cancelamento: " + requisicao1.isAtiva());
         requisicao1.cancelar();
         System.out.println("Reserva ativa após o cancelamento: " + requisicao1.isAtiva());
 
-      
+        // Testando a liberação da mesa
         mesa1.setDisponivel(false);
         System.out.println("Status da mesa antes da liberação: " + mesa1.estaDisponivel());
         mesa1.liberarMesa(1);
         System.out.println("Status da mesa após a liberação: " + mesa1.estaDisponivel());
     }
 }
+
+/**
+ * Classe TesteRestaurante responsável por testar as funcionalidades do sistema do restaurante.
+ * Este programa cria uma mesa, um cliente e uma requisição de reserva, e testa o cancelamento da reserva e a liberação da mesa.
+ */
