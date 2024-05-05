@@ -85,7 +85,7 @@ public class Menu {
        String resultado = " ";
         for(int i = 0; i < produtos.length; i++) {
             if(produtos[i] != null) {
-                resultado += produtos[i].getNome() + " " + produtos[i].getPreco() + "\n";
+                resultado += i + "-" + produtos[i].getNome() + "\n";
             }    
        }
        return resultado;
