@@ -1,28 +1,6 @@
 import java.time.LocalDate;
 
 
-/**
- * Libera uma mesa com base no código da mesa fornecido.
- * Se a mesa estiver ocupada, ela será liberada. Caso contrário, uma mensagem será exibida informando que a mesa já está livre.
- * 
- * @param codMesa O código da mesa a ser liberada.
- */
-
-public void liberarMesa(int codMesa) {
-    for (Mesa mesa : mesas) {
-        if (mesa.getCod() == codMesa) {
-            if (!mesa.estaDisponivel()) {
-                requisicao.mudarStatusMesa();
-                System.out.println("Mesa liberada.");
-            } else {
-                System.out.println("A mesa já está livre.");
-            }
-            return;
-        }
-    }
-    System.out.println("Mesa não encontrada.");
-}
-
 
 /**
  * Classe RequisicaoReserva representa uma solicitação de reserva em um restaurante.
@@ -87,7 +65,7 @@ public class RequisicaoReserva {
      */
     public void cancelar() {
         this.ativa = false; 
-        this.mesa.liberarMesa(); 
+        this.mesa.liberar(); 
     }
 
     /**
