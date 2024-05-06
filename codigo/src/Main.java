@@ -81,7 +81,7 @@ public class Main {
         System.out.println("Caso o cliente esteja null,ignore porque a mesa não está alocada");
         for (Mesa mesa : restaurante.mesas) {
             System.out.println("Mesa " + mesa.getCod() + " - Capacidade: " + mesa.getCapacidade() + " - "
-                    + (mesa.isDisponivel() ? "Disponível" : "Ocupada") + " - e o cliente alocado é o = " +(mesa.getCliente()));
+                    + (mesa.estaDisponivel(0) ? "Disponível" : "Ocupada") + " - e o cliente alocado é o = " +(mesa.getCliente()));
         }
     }
 
