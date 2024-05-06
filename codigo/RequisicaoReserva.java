@@ -87,7 +87,7 @@ public class RequisicaoReserva {
      */
     public void cancelar() {
         this.ativa = false; 
-        this.mesa.liberar(); 
+        this.mesa.liberarMesa(); 
     }
 
     /**
