@@ -1,5 +1,9 @@
+package Tests;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.Test;
+
+import Agua;
+import FalafelAssado;
 
 public class ProdutoTest {
 
