@@ -3,7 +3,7 @@ import static org.junit.Assert.*;
 
 import java.time.LocalDate;
 
-public class TesteRestaurante {
+public class RequisicaoReservaTeste {
 
     @Test
     public void testarFuncionalidadesRestaurante() {
