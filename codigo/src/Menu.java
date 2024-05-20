@@ -28,9 +28,9 @@ public class Menu {
      * @param pos A posição da qual se quer obter o produto.
      * @return Produto, caso tenha sido encontrado, null, caso não.
      */
-    public String getProduto(int pos){
+    public Produto getProduto(int pos){
         if(pos>=1 && pos<produtos.length)
-            return produtos[pos].getNome();
+            return produtos[pos];
         else
             return null;
     }
@@ -83,7 +83,7 @@ public class Menu {
      */
     public String mostrarMenu() {
        String resultado = " ";
-        for(int i = 0; i < produtos.length; i++) {
+        for(int i = 1; i < produtos.length; i++) {
             if(produtos[i] != null) {
                 resultado += i + "-" + produtos[i].getNome() + "\n";
             }    
