@@ -79,7 +79,7 @@ public class Main {
      */
     private static void verificarMesas(Restaurante restaurante) {
         System.out.println("Caso o cliente esteja null,ignore porque a mesa não está alocada");
-        for (Mesa mesa : restaurante.mesas) {
+        for (Mesa mesa : Restaurante.mesas) {
             System.out.println("Mesa " + mesa.getCod() + " - Capacidade: " + mesa.getCapacidade() + " - "
                     + (mesa.estaDisponivel(0) ? "Disponível" : "Ocupada") + " - e o cliente alocado é o = " +(mesa.getCliente()));
         }
@@ -133,7 +133,7 @@ public class Main {
         System.out.print("Digite o código da mesa a ser encerrada: ");
         int codMesa = scanner.nextInt();
         Mesa mesaEncerrar = null;
-        for (Mesa mesa : restaurante.mesas) {
+        for (Mesa mesa : Restaurante.mesas) {
             if (mesa.getCod() == codMesa) {
                 mesaEncerrar = mesa;
                 break;
