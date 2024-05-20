@@ -104,6 +104,7 @@ public class RequisicaoReserva {
 
     /**
      * Método para adicionar um produto ao pedido da reserva.
+     * 
      * @param produto Representa o produto solicitado pelo cliente.
      */
     public void addProdutoAPedido(Produto produto) {
@@ -112,8 +113,9 @@ public class RequisicaoReserva {
 
     /**
      * Método para encerrar um pedido.
+     * 
      * @return Um vetor com o valor total do pedido e o valor total por pessoa.
-     */ 
+     */
     public double[] fecharConta() {
         return pedido.fecharPedido(pessoas);
     }
@@ -121,9 +123,8 @@ public class RequisicaoReserva {
     /**
      * Método para exibir na tela os valores total do pedido e por pessoa.
      */
-    public void exibirValorPedido() {
+    public String exibirValorPedido() {
         double[] valorPedido = fecharConta();
-        System.out.println("Valor total do pedido: R$" + valorPedido[0]);
-        System.out.println("Valor total por pessoa: R$" + valorPedido[1]);
+        return "Valor total do pedido: R$" + valorPedido[0]+"\nValor total por pessoa: R$" + valorPedido[1];
     }
 }
