@@ -169,17 +169,42 @@ public class Main {
         restaurante.alocarMesa(requisicao);
     }
 
-    /**
-     * Adiciona produtos ao pedido do cliente.
-     * 
-     * @param scanner    O scanner de entrada.
-     * @param restaurante O restaurante onde o pedido será adicionado.
-     */
-    private static void adicionarProdutos(Scanner scanner, Restaurante restaurante) {
-        System.out.println("Escolha os produtos:");
-      System.out.println(menu.mostrarMenu());
-      
-    }       
+/**
+ * Adiciona produtos ao pedido do cliente.
+ * 
+ * @param scanner    O scanner de entrada.
+ * @param restaurante O restaurante onde o pedido será adicionado.
+ */
+private static void adicionarProdutos(Scanner scanner, Restaurante restaurante) {
+    // Exibe o menu de produtos disponíveis
+    System.out.println("Escolha os produtos:");
+    System.out.println(menu.mostrarMenu());
+    
+    // Solicita ao usuário que escolha os produtos
+    System.out.print("Digite o número do produto que deseja adicionar ao pedido (0 para finalizar): ");
+    int opcaoProduto = scanner.nextInt();
+    
+    Pedido pedido = new Pedido(); // Cria um novo pedido
+    
+    while (opcaoProduto != 0) {
+        Produto produtoSelecionado = menu.getProduto(opcaoProduto); // Obtém o produto selecionado
+        if (produtoSelecionado != null) {
+            pedido.addProduto(produtoSelecionado); // Adiciona o produto ao pedido
+            System.out.println("Produto adicionado ao pedido: " + produtoSelecionado.getNome());
+        } else {
+            System.out.println("Produto não encontrado. Por favor, escolha um produto válido.");
+        }
+        
+        // Solicita ao usuário que escolha outro produto ou finalize o pedido
+        System.out.print("Digite o número do próximo produto (0 para finalizar): ");
+        opcaoProduto = scanner.nextInt();
+    }
+    
+    // Exibe o total do pedido
+    double[] totalConta = pedido.fecharPedido(1);
+    System.out.println("Total do pedido: R$" + totalConta[0]);
+}
+  
 
     /**
      * Exibe o menu de produtos disponíveis.
@@ -187,5 +212,26 @@ public class Main {
     private static void exibirMenuProdutos() {
         System.out.println("Menu de Produtos:");
         menu.mostrarMenu();
+    }
+}
+
+private static void fecharConta(Scanner scanner, Restaurante restaurante) {
+    System.out.print("Digite o código da mesa para fechar a conta: ");
+    int codMesa = scanner.nextInt();
+    
+    Mesa mesa = restaurante.getMesaByCodigo(codMesa);
+    
+    if (mesa != null && !mesa.isDisponivel()) {
+        Pedido pedido = mesa.getPedido();
+        if (pedido != null) {
+            double[] totalConta = pedido.fecharPedido(mesa.getCapacidade());
+            System.out.println("Total da conta da Mesa " + codMesa + ": R$" + totalConta[0]);
+            
+            mesa.liberar();
+        } else {
+            System.out.println("Não há pedidos registrados para a Mesa " + codMesa);
+        }
+    } else {
+        System.out.println("Mesa não encontrada ou não está ocupada.");
     }
 }
