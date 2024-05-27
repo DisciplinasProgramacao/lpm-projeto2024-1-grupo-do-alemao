@@ -1,4 +1,3 @@
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,7 +8,6 @@ public class Mesa {
     private Cliente cliente;
     private List<RequisicaoReserva> pessoas;
     private boolean disponivel;
-
 
     /**
      * Construtor da classe Mesa.
@@ -120,5 +118,13 @@ public class Mesa {
 
     public void liberar() {
         this.disponivel = true;
+    }
+
+    /**
+     * Obtém o pedido associado à mesa.
+     * @return O pedido associado à mesa.
+     */
+    public Pedido getPedido() {
+        return this.getPedido();
     }
 }

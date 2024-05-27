@@ -73,4 +73,9 @@ public class Cliente {
     public String getTelefone() {
         return telefone;
     }
+
+    @Override
+    public String toString() {
+        return nome;
+    }
 }
