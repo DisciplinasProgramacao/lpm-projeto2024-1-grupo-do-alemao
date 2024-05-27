@@ -1,3 +1,5 @@
+
+
 import java.time.LocalDate;
 import java.util.Scanner;
 
@@ -17,6 +19,8 @@ public class Main {
         Restaurante restaurante = new Restaurante();
         // Variável para controlar se o programa deve ser encerrado
         boolean sair = false;
+
+        Restaurante.inicializaMesas();
 
         // Loop principal para exibir o menu e lidar com as opções do usuário
         while (!sair) {
@@ -78,10 +82,11 @@ public class Main {
      * @param restaurante O restaurante cujas mesas serão verificadas.
      */
     private static void verificarMesas(Restaurante restaurante) {
-        System.out.println("Caso o cliente esteja null,ignore porque a mesa não está alocada");
+        System.out.println("Caso o cliente esteja null, ignore porque a mesa não está alocada");
         for (Mesa mesa : Restaurante.mesas) {
+            String clienteNome = mesa.getCliente() != null ? mesa.getCliente().getNome() : "null";
             System.out.println("Mesa " + mesa.getCod() + " - Capacidade: " + mesa.getCapacidade() + " - "
-                    + (mesa.estaDisponivel(0) ? "Disponível" : "Ocupada") + " - e o cliente alocado é o = " +(mesa.getCliente()));
+                    + (mesa.estaDisponivel(0) ? "Disponível" : "Ocupada") + " - Cliente alocado: " + clienteNome);
         }
     }
 
@@ -213,8 +218,7 @@ private static void adicionarProdutos(Scanner scanner, Restaurante restaurante) 
         System.out.println("Menu de Produtos:");
         menu.mostrarMenu();
     }
-}
-
+    
 private static void fecharConta(Scanner scanner, Restaurante restaurante) {
     System.out.print("Digite o código da mesa para fechar a conta: ");
     int codMesa = scanner.nextInt();
@@ -235,3 +239,5 @@ private static void fecharConta(Scanner scanner, Restaurante restaurante) {
         System.out.println("Mesa não encontrada ou não está ocupada.");
     }
 }
+}
+

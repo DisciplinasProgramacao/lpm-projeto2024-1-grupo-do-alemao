@@ -1,3 +1,4 @@
+
 import java.util.List;
 import java.util.ArrayList;
 
@@ -135,9 +136,8 @@ mesas.add(new Mesa(10, 8, true,null));
 }
  //#endregion
  //
-}
 
-public Mesa getMesaByCodigo(int codigo) {
+ public Mesa getMesaByCodigo(int codigo) {
     for (Mesa mesa : mesas) {
         if (mesa.getCod() == codigo) {
             return mesa;
@@ -145,3 +145,5 @@ public Mesa getMesaByCodigo(int codigo) {
     }
     return null;
 }
+}
+
