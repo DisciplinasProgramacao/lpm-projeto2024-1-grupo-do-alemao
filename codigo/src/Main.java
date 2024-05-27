@@ -181,11 +181,10 @@ public class Main {
  * @param restaurante O restaurante onde o pedido será adicionado.
  */
 private static void adicionarProdutos(Scanner scanner, Restaurante restaurante) {
-    // Exibe o menu de produtos disponíveis
+
     System.out.println("Escolha os produtos:");
     System.out.println(menu.mostrarMenu());
     
-    // Solicita ao usuário que escolha os produtos
     System.out.print("Digite o número do produto que deseja adicionar ao pedido (0 para finalizar): ");
     int opcaoProduto = scanner.nextInt();
     
@@ -199,8 +198,7 @@ private static void adicionarProdutos(Scanner scanner, Restaurante restaurante) 
         } else {
             System.out.println("Produto não encontrado. Por favor, escolha um produto válido.");
         }
-        
-        // Solicita ao usuário que escolha outro produto ou finalize o pedido
+
         System.out.print("Digite o número do próximo produto (0 para finalizar): ");
         opcaoProduto = scanner.nextInt();
     }
