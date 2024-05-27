@@ -81,10 +81,17 @@ public class Main {
      */
     private static void verificarMesas(Restaurante restaurante) {
         System.out.println("Caso o cliente esteja null, ignore porque a mesa não está alocada");
+        
         for (Mesa mesa : Restaurante.mesas) {
-            String clienteNome = mesa.getCliente() != null ? mesa.getCliente().getNome() : "null";
+            if(mesa.getCliente() == null){
+                System.out.println("Mesa " + mesa.getCod() + " - Capacidade: " + mesa.getCapacidade() + " - "
+                    + (mesa.estaDisponivel(0) ? "Disponível" : "Ocupada"));
+            }
+            if(mesa.getCliente() != null){
+                String clienteNome = mesa.getCliente() != null ? mesa.getCliente().getNome() : "null";
             System.out.println("Mesa " + mesa.getCod() + " - Capacidade: " + mesa.getCapacidade() + " - "
                     + (mesa.estaDisponivel(0) ? "Disponível" : "Ocupada") + " - Cliente alocado: " + clienteNome);
+            }
         }
     }
 
