@@ -125,6 +125,6 @@ public class Mesa {
      * @return O pedido associado à mesa.
      */
     public Pedido getPedido() {
-        return this.pedido;
+        return this.getPedido();
     }
 }
