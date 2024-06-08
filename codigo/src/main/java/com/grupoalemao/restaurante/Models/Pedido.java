@@ -1,20 +1,30 @@
 package com.grupoalemao.restaurante.Models;
 
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * A classe Pedido representa um pedido de produtos.
- */
+@Entity
+@Table(name = "pedidos")
 public class Pedido {
-    private List<Produto> pedido;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "pedido_id")
+    private List<Produto> produtos = new ArrayList<>();
+
+    @OneToOne
+    @JoinColumn(name = "mesa_id")
+    private Mesa mesa;
 
     /**
      * Construtor da classe Pedido.
      * Inicializa a lista de produtos do pedido.
      */
     public Pedido() {
-        this.pedido = new ArrayList<Produto>();
     }
 
     /**
@@ -23,7 +33,7 @@ public class Pedido {
      * @param produto O produto a ser adicionado ao pedido.
      */
     public void addProduto(Produto produto) {
-        this.pedido.add(produto);
+        this.produtos.add(produto);
     }
 
     /**
@@ -32,16 +42,16 @@ public class Pedido {
      * @param produto O produto a ser removido do pedido.
      */
     public void removerProduto(Produto produto) {
-        this.pedido.remove(produto);
+        this.produtos.remove(produto);
     }
 
     /**
-     * Obtém o pedido completo.
+     * Obtém a lista de produtos no pedido.
      * 
      * @return A lista de produtos no pedido.
      */
-    public List<Produto> getPedido() {
-        return this.pedido;
+    public List<Produto> getProdutos() {
+        return this.produtos;
     }
 
     /**
@@ -53,7 +63,7 @@ public class Pedido {
      */
     public double[] fecharPedido(int pessoas) {
         double totalSemTaxa = 0.0;
-        for (Produto produto : this.pedido) {
+        for (Produto produto : this.produtos) {
             totalSemTaxa += produto.getPreco();
         }
 
@@ -62,9 +72,42 @@ public class Pedido {
 
         double valorPorPessoa = totalComTaxa / pessoas;
 
-        totalComTaxa = Math.round(totalComTaxa * 100.0) / 100.0;
-        valorPorPessoa = Math.round(valorPorPessoa * 100.0) / 100.0;
-
         return new double[] { totalComTaxa, valorPorPessoa };
+    }
+
+    /**
+     * Obtém a mesa associada a este pedido.
+     * 
+     * @return A mesa associada a este pedido.
+     */
+    public Mesa getMesa() {
+        return mesa;
+    }
+
+    /**
+     * Define a mesa associada a este pedido.
+     * 
+     * @param mesa A mesa a ser associada a este pedido.
+     */
+    public void setMesa(Mesa mesa) {
+        this.mesa = mesa;
+    }
+
+    /**
+     * Obtém o ID do pedido.
+     * 
+     * @return O ID do pedido.
+     */
+    public Long getId() {
+        return id;
+    }
+
+    /**
+     * Define o ID do pedido.
+     * 
+     * @param id O ID a ser definido.
+     */
+    public void setId(Long id) {
+        this.id = id;
     }
 }
