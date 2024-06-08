@@ -1,3 +1,5 @@
+package com.grupoalemao.restaurante.Models;
+
 public class CacarolaLegumes extends Produto {
     
     public CacarolaLegumes(String nome, double preco){

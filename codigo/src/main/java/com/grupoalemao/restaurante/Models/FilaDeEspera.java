@@ -1,3 +1,5 @@
+package com.grupoalemao.restaurante.Models;
+
 /**
  * Classe FilaDeEspera responsável por controlar a fila de requisições dos
  * clientes que ainda não foram alocados em mesas.

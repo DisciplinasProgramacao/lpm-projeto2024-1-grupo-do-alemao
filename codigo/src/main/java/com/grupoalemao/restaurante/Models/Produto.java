@@ -1,3 +1,5 @@
+package com.grupoalemao.restaurante.Models;
+
 /**
  * Esta classe tem a responsabilidade de armazenar os dados relacionados
  * aos produtos ofertados pelo restaurante.

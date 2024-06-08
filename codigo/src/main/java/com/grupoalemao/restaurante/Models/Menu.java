@@ -1,3 +1,5 @@
+package com.grupoalemao.restaurante.Models;
+
 /**
  * Classe Menu, responsável por armazenar e exibir os produtos do cardápio do restaurante.
  */

@@ -1,3 +1,4 @@
+package com.grupoalemao.restaurante.Models;
 
 import java.util.List;
 import java.util.ArrayList;
@@ -111,7 +112,7 @@ public void alocarMesa(RequisicaoReserva requisicao) {
 public void liberarMesa(int codMesa) {
     for (Mesa mesa : mesas) {
         if (mesa.getCod() == codMesa) {
-            if (!mesa.isDisponivel()) {
+            if (!mesa.estaDisponivel(0)) {
                 mesa.mudarStatusMesa(null);
                 mesa.liberar();
             } 
