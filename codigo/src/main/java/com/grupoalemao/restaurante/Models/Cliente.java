@@ -1,34 +1,51 @@
 package com.grupoalemao.restaurante.Models;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 /**
  * Esta classe tem a responsabilidade de armazenar os dados pessoais de um
  * cliente do restaurante.
  */
+@Entity
+@Table(name = "cliente")
 public class Cliente {
-    private static int cod = 0;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(unique = true)
+    private Integer cod;
+
+    @Column(nullable = false)
     private String nome;
+
+    @Column(nullable = false)
     private String telefone;
 
     /**
-     * Construtor da classe Cliente, que faz a validação se os dados passados não
-     * são nulos. Caso não sejam, gera um código inteiro para o cliente.
-     * @param n   Representa o nome do cliente, cujo tamanho deve ser maior que 3
-     *            caracteres
-     * @param tel Representa o telefone do cliente, cujo tamanho deve ser maior ou igual a
-     *            8 caracteres
+     * Construtor padrão da classe Cliente.
      */
-    public Cliente(String n, String tel) {
-        if (n != null && tel != null) {
-            setNome(n);
-            setTelefone(tel);
-            Cliente.cod = Cliente.cod + 1;
-        }
+    public Cliente() {
     }
 
     /**
-     * Método que atribui um valor recebido à variável Nome, se este tiver mais que
-     * 3 caracteres.
+     * Construtor da classe Cliente.
+     * 
+     * @param n   Representa o nome do cliente.
+     * @param tel Representa o telefone do cliente.
+     */
+    public Cliente(String n, String tel) {
+        setNome(n);
+        setTelefone(tel);
+    }
+
+    /**
+     * Método que atribui um valor recebido à variável Nome, se este tiver mais que 3 caracteres.
+     * 
      * @param nome Representa o nome do cliente
      */
     public void setNome(String nome) {
@@ -38,8 +55,8 @@ public class Cliente {
     }
 
     /**
-     * Método que atribui um valor recebido à variável Telefone, se este tiver 8 ou
-     * mais caracteres.
+     * Método que atribui um valor recebido à variável Telefone, se este tiver 8 ou mais caracteres.
+     * 
      * @param telefone Representa o telefone do cliente
      */
     public void setTelefone(String telefone) {
@@ -53,7 +70,7 @@ public class Cliente {
      * 
      * @return Um número inteiro que é o código do Cliente
      */
-    public int getCod() {
+    public Integer getCod() {
         return cod;
     }
 
@@ -75,8 +92,12 @@ public class Cliente {
         return telefone;
     }
 
+    /**
+     * Método que retorna uma string com os dados do cliente.
+     * @return Uma string que têm os dados do cliente.
+     */
     @Override
     public String toString() {
-        return nome;
+        return "Cliente: " + nome + "\nTelefone: " + telefone;
     }
 }
