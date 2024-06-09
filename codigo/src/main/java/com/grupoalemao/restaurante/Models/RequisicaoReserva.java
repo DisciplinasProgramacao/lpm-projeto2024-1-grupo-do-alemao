@@ -129,4 +129,27 @@ public class RequisicaoReserva {
         double[] valorPedido = fecharConta();
         return "Valor total do pedido: R$" + valorPedido[0]+"\nValor total por pessoa: R$" + valorPedido[1];
     }
+
+    //Para usar no RequisicaoReservaController
+
+    public void setDataReserva(LocalDate dataReserva) {
+        this.dataReserva = dataReserva;
+    }
+
+    public void setAtiva(boolean ativa) {
+        this.ativa = ativa;
+    }
+
+    public void setPessoas(int pessoas) {
+        this.pessoas = pessoas;
+    }
+
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
+    }
+
+    public void setMesa(Mesa mesa) {
+        this.mesa = mesa;
+    }
+
 }
