@@ -117,12 +117,6 @@ public class RequisicaoReserva {
         return "Valor total do pedido: R$" + valorPedido[0]+"\nValor total por pessoa: R$" + valorPedido[1];
     }
 
-    //Para usar no RequisicaoReservaController
-
-    public void setDataReserva(LocalDate dataReserva) {
-        this.dataReserva = dataReserva;
-    }
-
     public void setAtiva(boolean ativa) {
         this.ativa = ativa;
     }
