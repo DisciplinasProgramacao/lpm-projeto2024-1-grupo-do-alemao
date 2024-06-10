@@ -126,11 +126,7 @@ public class Main {
     private static void solicitarMesa(Scanner scanner, Restaurante restaurante) {
         System.out.print("Digite o nome do cliente: ");
         String nomeCliente = scanner.next();
-        System.out.print("Digite o telefone do cliente: ");
-        String telefoneCliente = scanner.next();
         Cliente cliente = new Cliente(nomeCliente, telefoneCliente);
-        System.out.print("Digite a data da reserva (AAAA-MM-DD): ");
-        String dataReservaString = scanner.next();
         LocalDate dataReserva = LocalDate.parse(dataReservaString);
         System.out.print("Digite o número de pessoas: ");
         int numPessoas = scanner.nextInt();
