@@ -9,7 +9,7 @@ import java.util.List;
 @RequestMapping("/pedidos")
 public class PedidoController {
 
-    private List<Pedido> pedidos = new ArrayList<>();
+    private List<Pedido> pedidos = new ArrayList<>(); * arrumar para BD
 
     @PostMapping
     public ResponseEntity<Pedido> criarPedido() {
