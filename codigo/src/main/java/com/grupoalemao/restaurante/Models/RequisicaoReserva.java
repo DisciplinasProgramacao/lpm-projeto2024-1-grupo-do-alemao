@@ -13,7 +13,7 @@ public class RequisicaoReserva {
     private boolean ativa;
     private int pessoas;
     private Cliente cliente;
-    private Mesa mesa;
+    private Mesa mesa; *erro
     private Pedido pedido;
 
     /**
