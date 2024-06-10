@@ -197,10 +197,11 @@ public class Main {
         Pedido pedido = new Pedido(); // Cria um novo pedido
         
         while (opcaoProduto != 0) {
-            Produto produtoSelecionado = menu.getProduto(opcaoProduto); // Obtém o produto selecionado
+            Produto produto = menu.getProduto(opcaoProduto);// Obtém o produto selecionado
+            List<Produto> produtos = new ArrayList<String>;
             if (produtoSelecionado != null) {
-                pedido.addProduto(produtoSelecionado); // Adiciona o produto ao pedido
-                System.out.println("Produto adicionado ao pedido: " + produtoSelecionado.getNome());
+                produtos.addProduto(produto); // Adiciona o produto ao pedido
+                System.out.println("Produto adicionado ao pedido: " + produto.getNome());
             } else {
                 System.out.println("Produto não encontrado. Por favor, escolha um produto válido.");
             }
