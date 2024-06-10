@@ -1,7 +1,5 @@
 package com.grupoalemao.restaurante.Models;
 
-import java.time.LocalDate;
-
 /**
  * Classe RequisicaoReserva representa uma solicitação de reserva em um
  * restaurante.
@@ -27,7 +25,7 @@ public class RequisicaoReserva {
      * @param cliente     O cliente associado à reserva.
      * @param mesa        A mesa reservada.
      */
-    public RequisicaoReserva(LocalDate dataReserva, int pessoas, Cliente cliente, Mesa mesa) {
+    public RequisicaoReserva(int pessoas, Cliente cliente, Mesa mesa) {
         this.id = proximoId++;
         this.ativa = true;
         this.pessoas = pessoas;
