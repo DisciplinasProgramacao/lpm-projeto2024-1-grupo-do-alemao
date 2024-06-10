@@ -1,5 +1,7 @@
 package com.grupoalemao.restaurante.Models;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Main {
@@ -197,9 +199,9 @@ public class Main {
         
         while (opcaoProduto != 0) {
             Produto produto = menu.getProduto(opcaoProduto);// Obtém o produto selecionado
-            List<Produto> produtos = new ArrayList<String>;
-            if (produtoSelecionado != null) {
-                produtos.addProduto(produto); // Adiciona o produto ao pedido
+            List<Produto> produtos = new ArrayList<>();
+            if (produto != null) {
+                produtos.add(produto); // Adiciona o produto ao pedido
                 System.out.println("Produto adicionado ao pedido: " + produto.getNome());
             } else {
                 System.out.println("Produto não encontrado. Por favor, escolha um produto válido.");
