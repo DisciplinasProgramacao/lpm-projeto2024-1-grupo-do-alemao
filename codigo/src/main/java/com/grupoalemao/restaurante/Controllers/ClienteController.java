@@ -9,7 +9,7 @@ import java.util.List;
 @RequestMapping("/clientes")
 public class ClienteController {
 
-    private List<Cliente> clientes = new ArrayList<>();
+    private List<Cliente> clientes = new ArrayList<>();* arrumar para BD
 
     @PostMapping
     public ResponseEntity<Cliente> criarCliente(@RequestBody Cliente cliente) {
