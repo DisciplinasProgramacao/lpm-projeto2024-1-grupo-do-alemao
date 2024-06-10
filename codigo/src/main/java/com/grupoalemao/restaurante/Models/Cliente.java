@@ -12,7 +12,7 @@ import javax.persistence.Table;
  * cliente do restaurante.
  */
 @Entity
-@Table(name = "cliente")
+@Table(name = "clientes")
 public class Cliente {
 
     @Id
