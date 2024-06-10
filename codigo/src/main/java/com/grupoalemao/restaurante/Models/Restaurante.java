@@ -24,10 +24,9 @@ public class Restaurante {
  * Adiciona um novo cliente à lista de clientes.
  * 
  * @param nome O nome do cliente a ser adicionado.
- * @param telefone O número de telefone do cliente a ser adicionado.
  */
-   public void adicionarCliente(String nome, String telefone) {
-    Cliente cliente = new Cliente(nome, telefone);
+   public void adicionarCliente(String nome) {
+    Cliente cliente = new Cliente(nome);
     clientes.add(cliente);
 }
 
