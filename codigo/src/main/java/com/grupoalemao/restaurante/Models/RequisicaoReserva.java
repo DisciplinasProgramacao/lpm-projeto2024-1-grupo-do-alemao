@@ -1,7 +1,5 @@
 package com.grupoalemao.restaurante.Models;
 
-import java.time.LocalDate;
-
 /**
  * Classe RequisicaoReserva representa uma solicitação de reserva em um
  * restaurante.
@@ -12,7 +10,6 @@ import java.time.LocalDate;
 public class RequisicaoReserva {
     private static int proximoId = 1;
     private int id;
-    private LocalDate dataReserva;
     private boolean ativa;
     private int pessoas;
     private Cliente cliente;
@@ -24,15 +21,12 @@ public class RequisicaoReserva {
      * Inicializa uma reserva com os parâmetros fornecidos e gera um identificador
      * único automaticamente.
      * Marca a mesa associada como indisponível.
-     *
-     * @param dataReserva A data da reserva.
      * @param pessoas     O número de pessoas na reserva.
      * @param cliente     O cliente associado à reserva.
      * @param mesa        A mesa reservada.
      */
-    public RequisicaoReserva(LocalDate dataReserva, int pessoas, Cliente cliente, Mesa mesa) {
+    public RequisicaoReserva(int pessoas, Cliente cliente, Mesa mesa) {
         this.id = proximoId++;
-        this.dataReserva = dataReserva;
         this.ativa = true;
         this.pessoas = pessoas;
         this.cliente = cliente;
@@ -48,15 +42,6 @@ public class RequisicaoReserva {
      */
     public int getId() {
         return id;
-    }
-
-    /**
-     * Método para obter a data da reserva.
-     *
-     * @return A data da reserva.
-     */
-    public LocalDate getDataReserva() {
-        return dataReserva;
     }
 
     /**
@@ -128,12 +113,6 @@ public class RequisicaoReserva {
     public String exibirValorPedido() {
         double[] valorPedido = fecharConta();
         return "Valor total do pedido: R$" + valorPedido[0]+"\nValor total por pessoa: R$" + valorPedido[1];
-    }
-
-    //Para usar no RequisicaoReservaController
-
-    public void setDataReserva(LocalDate dataReserva) {
-        this.dataReserva = dataReserva;
     }
 
     public void setAtiva(boolean ativa) {

@@ -1,6 +1,5 @@
 package com.grupoalemao.restaurante.Models;
 
-import java.time.LocalDate;
 import java.util.Scanner;
 
 public class Main {
@@ -126,12 +125,12 @@ public class Main {
     private static void solicitarMesa(Scanner scanner, Restaurante restaurante) {
         System.out.print("Digite o nome do cliente: ");
         String nomeCliente = scanner.next();
-        Cliente cliente = new Cliente(nomeCliente, telefoneCliente);
-        LocalDate dataReserva = LocalDate.parse(dataReservaString);
+        Cliente cliente = new Cliente();
+        cliente.getNome();
         System.out.print("Digite o número de pessoas: ");
         int numPessoas = scanner.nextInt();
-        restaurante.adicionarCliente(nomeCliente, telefoneCliente);
-        RequisicaoReserva requisicao = new RequisicaoReserva(dataReserva, numPessoas, cliente, new Mesa(0, numPessoas,true,cliente));
+        restaurante.adicionarCliente(nomeCliente);
+        RequisicaoReserva requisicao = new RequisicaoReserva(numPessoas, cliente, new Mesa(0, numPessoas,true,cliente));
         restaurante.filaDeEspera.addRequisicaoNaFila(requisicao);
         System.out.println("Requisição de mesa adicionada com sucesso!");
     }
@@ -172,11 +171,11 @@ public class Main {
         System.out.print("Digite a quantidade de pessoas: ");
         int pessoas = scanner.nextInt();
     
-        Cliente cliente = new Cliente(nomeCliente, "");
+        Cliente cliente = new Cliente(nomeCliente);
 
         Mesa mesa = new Mesa(codMesa, pessoas, true, cliente);
     
-        RequisicaoReserva requisicao = new RequisicaoReserva(LocalDate.now(), pessoas, cliente, mesa);
+        RequisicaoReserva requisicao = new RequisicaoReserva(pessoas, cliente, mesa);
 
         restaurante.alocarMesa(requisicao);
     }

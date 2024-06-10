@@ -12,7 +12,7 @@ import javax.persistence.Table;
  * cliente do restaurante.
  */
 @Entity
-@Table(name = "cliente")
+@Table(name = "clientes")
 public class Cliente {
 
     @Id
@@ -22,9 +22,6 @@ public class Cliente {
 
     @Column(nullable = false)
     private String nome;
-
-    @Column(nullable = false)
-    private String telefone;
 
     /**
      * Construtor padrão da classe Cliente.
@@ -36,11 +33,9 @@ public class Cliente {
      * Construtor da classe Cliente.
      * 
      * @param n   Representa o nome do cliente.
-     * @param tel Representa o telefone do cliente.
      */
-    public Cliente(String n, String tel) {
+    public Cliente(String n) {
         setNome(n);
-        setTelefone(tel);
     }
 
     /**
@@ -51,17 +46,6 @@ public class Cliente {
     public void setNome(String nome) {
         if (nome.length() > 3) {
             this.nome = nome;
-        }
-    }
-
-    /**
-     * Método que atribui um valor recebido à variável Telefone, se este tiver 8 ou mais caracteres.
-     * 
-     * @param telefone Representa o telefone do cliente
-     */
-    public void setTelefone(String telefone) {
-        if (telefone.length() >= 8) {
-            this.telefone = telefone;
         }
     }
 
@@ -84,20 +68,11 @@ public class Cliente {
     }
 
     /**
-     * Método que retorna o telefone do Cliente.
-     * 
-     * @return Uma string que é o telefone do Cliente
-     */
-    public String getTelefone() {
-        return telefone;
-    }
-
-    /**
      * Método que retorna uma string com os dados do cliente.
      * @return Uma string que têm os dados do cliente.
      */
     @Override
     public String toString() {
-        return "Cliente: " + nome + "\nTelefone: " + telefone;
+        return "Cliente: " + nome;
     }
 }
