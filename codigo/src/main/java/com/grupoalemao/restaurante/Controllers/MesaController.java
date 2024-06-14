@@ -68,18 +68,6 @@ public class MesaController {
                 }).orElse(ResponseEntity.notFound().build());
     }
     
-    /**
-     * Deleta uma mesa com base no ID fornecido.
-     * @param id o ID da mesa a ser deletada.
-     * @return uma resposta OK se a mesa for deletada ou uma resposta de não encontrado.
-     */
-    @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteMesa(@PathVariable Integer id) {
-        return mesaRepository.findById(id)
-                .map(mesa -> {
-                    mesaRepository.delete(mesa);
-                    return ResponseEntity.ok().build();
-                }).orElse(ResponseEntity.notFound().build());
-    }
+    
 }
 
