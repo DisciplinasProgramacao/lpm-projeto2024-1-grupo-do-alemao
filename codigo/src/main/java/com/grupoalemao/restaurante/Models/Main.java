@@ -120,11 +120,47 @@ public class Main {
     }
 
     /**
+     * Procura uma mesa disponível no array mesas de Restaurante, de acordo com o número de pessoas
+     * informadas.
+     * @param numPessoas O número de pessoas.
+     * @param restaurante O restaurante que possui a lista de mesas existentes.
+     * @return A mesa disponível correspondente ao número de pessoas informado.
+     */
+    private static Mesa encontrarMesaDisponivel(int numPessoas, Restaurante restaurante) {
+        for (Mesa mesa : Restaurante.mesas) {
+            if (mesa.estaDisponivel(numPessoas) && mesa.getCapacidade() >= numPessoas) {
+                return mesa;
+            }
+        }
+        return null; 
+    }
+
+    /**
      * Solicita uma mesa no restaurante.
      * @param scanner O scanner de entrada.
      * @param restaurante O restaurante onde a mesa será solicitada.
      */
     private static void solicitarMesa(Scanner scanner, Restaurante restaurante) {
+        System.out.print("Digite o nome do cliente: ");
+        String nomeCliente = scanner.next();
+        Cliente cliente = new Cliente(nomeCliente);
+        System.out.print("Digite o número de pessoas: ");
+        int numPessoas = scanner.nextInt();
+        restaurante.adicionarCliente(nomeCliente);
+
+        Mesa mesaDisponivel = encontrarMesaDisponivel(numPessoas, restaurante);
+        if (mesaDisponivel != null) {
+            RequisicaoReserva requisicao = new RequisicaoReserva(numPessoas, cliente, mesaDisponivel);
+            restaurante.alocarMesa(requisicao);
+            System.out.println("Mesa " + mesaDisponivel.getCod() + " alocada com sucesso para " + numPessoas + " pessoas.");
+        } else {
+            System.out.println("Não há mesas disponíveis para " + numPessoas + " pessoas. Cliente adicionado à fila de espera.");
+            RequisicaoReserva requisicao = new RequisicaoReserva(numPessoas, cliente, null);
+            restaurante.filaDeEspera.addRequisicaoNaFila(requisicao);
+        }
+    }
+
+    /*private static void solicitarMesa(Scanner scanner, Restaurante restaurante) {
         System.out.print("Digite o nome do cliente: ");
         String nomeCliente = scanner.next();
         Cliente cliente = new Cliente();
@@ -135,7 +171,7 @@ public class Main {
         RequisicaoReserva requisicao = new RequisicaoReserva(numPessoas, cliente, new Mesa(0, numPessoas,true,cliente));
         restaurante.filaDeEspera.addRequisicaoNaFila(requisicao);
         System.out.println("Requisição de mesa adicionada com sucesso!");
-    }
+    }*/
 
    /**
      * Encerra uma mesa no restaurante.
