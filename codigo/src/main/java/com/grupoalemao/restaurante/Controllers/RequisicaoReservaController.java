@@ -95,8 +95,8 @@ public class RequisicaoReservaController {
     public ResponseEntity<RequisicaoReserva> encerrarReserva(@PathVariable Integer id) {
         return requisicaoReservaRepository.findById(id)
                 .map(reserva -> {
-                    reserva.cancelar(); // Método cancelar() da classe RequisicaoReserva
-                    requisicaoReservaRepository.save(reserva); // Salva a reserva encerrada no banco de dados
+                    reserva.cancelar();
+                    requisicaoReservaRepository.save(reserva);
                     return ResponseEntity.ok(reserva);
                 })
                 .orElse(ResponseEntity.notFound().build());
