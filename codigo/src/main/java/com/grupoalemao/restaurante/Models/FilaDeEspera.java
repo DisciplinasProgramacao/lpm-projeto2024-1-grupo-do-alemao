@@ -1,5 +1,8 @@
 package com.grupoalemao.restaurante.Models;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Classe FilaDeEspera responsável por controlar a fila de requisições dos
  * clientes que ainda não foram alocados em mesas.
@@ -8,8 +11,8 @@ public class FilaDeEspera {
 
     // #region atributos
 
-    private RequisicaoReserva[] requisicoes;
-    private int numRequisicoes;
+    private List<RequisicaoReserva> requisicoes;
+    //private int numRequisicoes;
 
     // #endregion
 
@@ -25,8 +28,7 @@ public class FilaDeEspera {
      * pois nesse momento ainda não há requisições na fila.
      */
     public FilaDeEspera() {
-        requisicoes = new RequisicaoReserva[100];
-        numRequisicoes = 0;
+        requisicoes = new ArrayList<>();
     }
     // #endregion
 
@@ -36,7 +38,7 @@ public class FilaDeEspera {
      * @param requisicao É a requisição a ser adicionada na fila.
      */
     public void addRequisicaoNaFila(RequisicaoReserva requisicao) {
-        requisicoes[numRequisicoes++] = requisicao;
+        requisicoes.add(requisicao);
     }
 
     /**
@@ -45,20 +47,13 @@ public class FilaDeEspera {
      * @return Requisição removida, caso ela tenha sido encontrada, null, caso não.
      */
     public RequisicaoReserva removerRequisicaoDafiLa(int numPessoas) {
-        RequisicaoReserva reqRemovida = null;
-        for (int posicao = 0; posicao < numRequisicoes; posicao++) {
-            if (numPessoas == requisicoes[posicao].getPessoas()) {
-                reqRemovida = requisicoes[posicao];
-                for (int i = posicao + 1; i < numRequisicoes; i++) {
-                    requisicoes[i - 1] = requisicoes[i];
-                }
-
-                requisicoes[numRequisicoes - 1] = null;
-                numRequisicoes--;
-                return reqRemovida;
+       for(RequisicaoReserva requisicao : requisicoes) {
+            if(requisicao.getPessoas() == numPessoas) {
+                requisicoes.remove(requisicao);
+                return requisicao;
             }
-        }
-        return reqRemovida;
+       }
+       return null;
     }
 
     /**
@@ -69,20 +64,13 @@ public class FilaDeEspera {
      * @return Requisição removida, caso ela tenha sido encontrada, null, caso não.
      */
     public RequisicaoReserva removerRequisicaoDafiLa(Cliente cliente) {
-        RequisicaoReserva reqRemovida = null;
-        for (int posicao = 0; posicao < numRequisicoes; posicao++) {
-            if (cliente == requisicoes[posicao].getCliente()) {
-                reqRemovida = requisicoes[posicao];
-                for (int i = posicao + 1; i < numRequisicoes; i++) {
-                    requisicoes[i - 1] = requisicoes[i];
-                }
-
-                requisicoes[numRequisicoes - 1] = null;
-                numRequisicoes--;
-                return reqRemovida;
+        for(RequisicaoReserva requisicao : requisicoes) {
+            if(requisicao.getCliente().equals(cliente)) {
+                requisicoes.remove(requisicao);
+                return requisicao;
             }
         }
-        return reqRemovida;
+        return null;
     }
 
     /**
@@ -90,7 +78,7 @@ public class FilaDeEspera {
      * @return O número de requisições presentes na fila.
      */
     public int getNumRequisicoes() {
-        return numRequisicoes;
+        return requisicoes.size();
     }
 
     /**
@@ -98,11 +86,11 @@ public class FilaDeEspera {
      * @return O número de pessoas de cada requisição na fila.
      */
     public String getRequisicoes() {
-        String resultado = "";
-        for (int i = 0; i < numRequisicoes; i++) {
-            resultado += requisicoes[i].getPessoas() + " ";
+        StringBuilder resultado = new StringBuilder();
+        for (RequisicaoReserva requisicao : requisicoes) {
+            resultado.append(requisicao.getPessoas()).append(" ");
         }
-        return resultado;
+        return resultado.toString();
     }
 
     /**
@@ -110,11 +98,11 @@ public class FilaDeEspera {
      * @return Os nomes dos clientes de cada requisição na fila.
      */
     public String getRequisicoesCliente() {
-        String resultado = "";
-        for (int i = 0; i < numRequisicoes; i++) {
-            resultado += requisicoes[i].getCliente().getNome() + " ";
+        StringBuilder resultado = new StringBuilder();
+        for (RequisicaoReserva requisicao : requisicoes) {
+            resultado.append(requisicao.getCliente().getNome()).append(" ");
         }
-        return resultado;
+        return resultado.toString();
     }
     // #endregion
 }
