@@ -1,55 +1,62 @@
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @RestController
 @RequestMapping("/pedidos")
 public class PedidoController {
 
-    private List<Pedido> pedidos = new ArrayList<>();
+    @Autowired
+    private PedidoRepository pedidoRepository;
+
+    @Autowired
+    private ProdutoRepository produtoRepository;
 
     @PostMapping
     public ResponseEntity<Pedido> criarPedido() {
         Pedido pedido = new Pedido();
-        pedidos.add(pedido);
-        return new ResponseEntity<>(pedido, HttpStatus.CREATED);
+        Pedido savedPedido = pedidoRepository.save(pedido);
+        return new ResponseEntity<>(savedPedido, HttpStatus.CREATED);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Pedido> obterPedido(@PathVariable int id) {
-        if (id < 0 || id >= pedidos.size()) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-        return new ResponseEntity<>(pedidos.get(id), HttpStatus.OK);
+    public ResponseEntity<Pedido> obterPedido(@PathVariable Integer id) {
+        return pedidoRepository.findById(id)
+                .map(pedido -> new ResponseEntity<>(pedido, HttpStatus.OK))
+                .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
     @PostMapping("/{id}/produtos")
-    public ResponseEntity<Void> adicionarProduto(@PathVariable int id, @RequestBody Produto produto) {
-        if (id < 0 || id >= pedidos.size()) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-        pedidos.get(id).addProduto(produto);
-        return new ResponseEntity<>(HttpStatus.OK);
+    public ResponseEntity<Void> adicionarProduto(@PathVariable Integer id, @RequestBody Produto produto) {
+        return pedidoRepository.findById(id)
+                .map(pedido -> {
+                    Produto savedProduto = produtoRepository.save(produto);
+                    pedido.addProduto(savedProduto);
+                    pedidoRepository.save(pedido);
+                    return new ResponseEntity<Void>(HttpStatus.OK);
+                })
+                .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
     @DeleteMapping("/{id}/produtos")
-    public ResponseEntity<Void> removerProduto(@PathVariable int id, @RequestBody Produto produto) {
-        if (id < 0 || id >= pedidos.size()) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-        pedidos.get(id).removerProduto(produto);
-        return new ResponseEntity<>(HttpStatus.OK);
+    public ResponseEntity<Void> removerProduto(@PathVariable Integer id, @RequestBody Produto produto) {
+        return pedidoRepository.findById(id)
+                .map(pedido -> {
+                    pedido.removerProduto(produto);
+                    pedidoRepository.save(pedido);
+                    return new ResponseEntity<Void>(HttpStatus.OK);
+                })
+                .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
     @GetMapping("/{id}/fechar/{pessoas}")
-    public ResponseEntity<double[]> fecharPedido(@PathVariable int id, @PathVariable int pessoas) {
-        if (id < 0 || id >= pedidos.size()) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-        double[] resultado = pedidos.get(id).fecharPedido(pessoas);
-        return new ResponseEntity<>(resultado, HttpStatus.OK);
+    public ResponseEntity<double[]> fecharPedido(@PathVariable Integer id, @PathVariable int pessoas) {
+        return pedidoRepository.findById(id)
+                .map(pedido -> {
+                    double[] resultado = pedido.fecharPedido(pessoas);
+                    return new ResponseEntity<>(resultado, HttpStatus.OK);
+                })
+                .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 }
