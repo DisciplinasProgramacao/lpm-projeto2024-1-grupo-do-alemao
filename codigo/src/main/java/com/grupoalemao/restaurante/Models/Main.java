@@ -26,7 +26,7 @@ public class Main {
             exibirMenu();
             try {
                 int opcao = scanner.nextInt();
-                scanner.nextLine();  // Consumir o restante da linha
+                scanner.nextLine(); 
 
                 switch (opcao) {
                     case 1:
@@ -203,7 +203,7 @@ public class Main {
         try {
             System.out.print("Digite o código da mesa a ser encerrada: ");
             int codMesa = scanner.nextInt();
-            scanner.nextLine(); // Consumir o restante da linha
+            scanner.nextLine(); 
             Mesa mesaEncerrar = null;
             for (Mesa mesa : Restaurante.mesas) {
                 if (mesa.getCod() == codMesa) {
@@ -235,12 +235,12 @@ public class Main {
         try {
             System.out.print("Digite o código da mesa para alocar o cliente: ");
             int codMesa = scanner.nextInt();
-            scanner.nextLine(); // Consumir o restante da linha
+            scanner.nextLine(); 
             System.out.print("Digite o nome do cliente: ");
             String nomeCliente = scanner.nextLine();
             System.out.print("Digite a quantidade de pessoas: ");
             int pessoas = scanner.nextInt();
-            scanner.nextLine(); // Consumir o restante da linha
+            scanner.nextLine(); 
 
             Cliente cliente = new Cliente(nomeCliente);
 
@@ -271,7 +271,7 @@ public class Main {
 
             System.out.print("Digite o número do produto que deseja adicionar ao pedido (0 para finalizar): ");
             int opcaoProduto = scanner.nextInt();
-            scanner.nextLine(); // Consumir o restante da linha
+            scanner.nextLine(); 
 
             Pedido pedido = new Pedido(); // Cria um novo pedido
 
@@ -286,7 +286,7 @@ public class Main {
 
                 System.out.print("Digite o número do próximo produto (0 para finalizar): ");
                 opcaoProduto = scanner.nextInt();
-                scanner.nextLine(); // Consumir o restante da linha
+                scanner.nextLine(); 
             }
 
             double[] totalConta = pedido.fecharPedido(1);
@@ -318,7 +318,7 @@ public class Main {
         try {
             System.out.print("Digite o código da mesa para fechar a conta: ");
             int codMesa = scanner.nextInt();
-            scanner.nextLine(); // Consumir o restante da linha
+            scanner.nextLine(); 
 
             Mesa mesa = restaurante.getMesaByCodigo(codMesa);
 
