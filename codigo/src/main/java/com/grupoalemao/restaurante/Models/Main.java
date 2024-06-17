@@ -50,12 +50,9 @@ public class Main {
                         adicionarProdutos(scanner, restaurante);
                         break;
                     case 7:
-                        exibirMenuProdutos();
-                        break;
-                    case 8:
                         fecharConta(scanner, restaurante);
                         break;
-                    case 9:
+                    case 8:
                         exibirCardapios();
                         break;
                     case 0:
