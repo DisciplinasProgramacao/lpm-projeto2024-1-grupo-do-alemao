@@ -1,5 +1,14 @@
 package com.grupoalemao.restaurante.Models;
 
+import javax.persistence.Column;
+
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToMany;
+
 /**
  * Classe RequisicaoReserva representa uma solicitação de reserva em um
  * restaurante.
@@ -8,12 +17,28 @@ package com.grupoalemao.restaurante.Models;
  * Esta classe controla também o status da reserva.
  */
 public class RequisicaoReserva {
-    private static int proximoId = 1;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(unique = true)
     private int id;
+    
+    @Column(nullable = false)
     private boolean ativa;
+    
+    @Column(nullable = false)
     private int pessoas;
+
+    @ManyToMany
+    @JoinColumn(name = "cliente_id")
     private Cliente cliente;
-    private Mesa mesa; //erro
+
+    @ManyToMany
+    @JoinColumn(name = "mesa_id")
+    private Mesa mesa;
+
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "pedido_id")
     private Pedido pedido;
 
     /**
@@ -26,7 +51,7 @@ public class RequisicaoReserva {
      * @param mesa        A mesa reservada.
      */
     public RequisicaoReserva(int pessoas, Cliente cliente, Mesa mesa) {
-        this.id = proximoId++;
+        this.id = id++;
         this.ativa = true;
         this.pessoas = pessoas;
         this.cliente = cliente;
@@ -61,6 +86,15 @@ public class RequisicaoReserva {
         this.ativa = false;
         this.mesa.liberar();
     }
+
+        /**
+     * Método para cancelar a reserva.
+     * Marca a reserva como cancelada e marca a mesa associada como disponível.
+     */
+    public void setAtiva(boolean ativa) {
+        this.ativa = ativa;
+    }
+
 
     /**
      * Método para obter o número de pessoas na reserva.
@@ -113,6 +147,10 @@ public class RequisicaoReserva {
     public String exibirValorPedido() {
         double[] valorPedido = fecharConta();
         return "Valor total do pedido: R$" + valorPedido[0]+"\nValor total por pessoa: R$" + valorPedido[1];
+    }
+
+    public void setPessoas(int pessoas) {
+        this.pessoas = pessoas;
     }
 
 }

@@ -18,18 +18,19 @@ public class Mesa {
     @Column(nullable = false)
     private int capacidade;
 
-    @ManyToOne
-    @JoinColumn(name = "cliente_id", nullable = true)
-    private Cliente cliente;
-
-    @OneToMany(mappedBy = "mesa", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<RequisicaoReserva> pessoas = new ArrayList<>();
-
     @Column(nullable = false)
     private boolean disponivel;
 
-    @OneToOne(mappedBy = "mesa", cascade = CascadeType.ALL, orphanRemoval = true)
+    @ManyToMany(mappedBy = "pessoas", cascade = CascadeType.ALL)
+    private List<RequisicaoReserva> pessoas = new ArrayList<>();
+
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "pedido_id")
     private Pedido pedido;
+
+    @ManyToMany
+    @JoinColumn(name = "cliente_id", nullable = true)
+    private Cliente cliente;
 
     /**
      * Construtor padrão da classe Mesa.

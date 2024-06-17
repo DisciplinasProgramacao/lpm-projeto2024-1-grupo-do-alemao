@@ -61,7 +61,6 @@ public class MesaController {
         return mesaRepository.findById(id)
                 .map(mesa -> {
                     mesa.setCapacidade(mesaDetails.getCapacidade());
-                    mesa.setCliente(mesaDetails.getCliente());
                     mesa.setDisponivel(mesaDetails.estaDisponivel(mesaDetails.getCapacidade()));
                     Mesa updatedMesa = mesaRepository.save(mesa);
                     return ResponseEntity.ok(updatedMesa);

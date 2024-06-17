@@ -1,31 +1,49 @@
 package com.grupoalemao.restaurante.Controllers;
 
-import org.springframework.http.HttpStatus;
+import java.util.Optional;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import com.grupoalemao.exceptions.GlobalExceptions;
 import com.grupoalemao.restaurante.Models.Cliente;
-
-import java.util.ArrayList;
-import java.util.List;
+import com.grupoalemao.restaurante.Repositories.ClienteRepository;
 
 @RestController
 @RequestMapping("/clientes")
+@Validated
 public class ClienteController {
 
-    private List<Cliente> clientes = new ArrayList<>();//* arrumar para BD
+    @Autowired
+    private ClienteRepository clienteRepository;
 
     @PostMapping
-    public ResponseEntity<Cliente> criarCliente(@RequestBody Cliente cliente) {
-        clientes.add(cliente);
-        return new ResponseEntity<>(cliente, HttpStatus.CREATED);
+    public Cliente createCliente(@RequestBody Cliente cliente) {
+        return clienteRepository.save(cliente);
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<Cliente> obterCliente(@PathVariable int id) {
-        if (id < 0 || id >= clientes.size()) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    @PutMapping("/{id}")
+    public ResponseEntity<Cliente> updateCliente(@PathVariable int id, @RequestBody Cliente clienteDetails) throws GlobalExceptions {
+        Optional<Cliente> cliente = clienteRepository.findById(id);
+        if (cliente.isPresent()) {
+            Cliente existingCliente = cliente.get();
+            existingCliente.setNome(clienteDetails.getNome());
+            final Cliente updatedCliente = clienteRepository.save(existingCliente);
+            return ResponseEntity.ok(updatedCliente);
+        } else {
+            return ResponseEntity.notFound().build();
         }
-        return new ResponseEntity<>(clientes.get(id), HttpStatus.OK);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteCliente(@PathVariable int id) {
+        Optional<Cliente> cliente = clienteRepository.findById(id);
+        if (cliente.isPresent()) {
+            clienteRepository.delete(cliente.get());
+            return ResponseEntity.noContent().build();
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 }
