@@ -14,7 +14,7 @@ import java.util.List;
 @RequestMapping("/pedidos")
 public class PedidoController {
 
-    private List<Pedido> pedidos = new ArrayList<>(); //* arrumar para BD
+   //PedidoRepository repository = ....
 
     @PostMapping
     public ResponseEntity<Pedido> criarPedido() {
@@ -31,12 +31,14 @@ public class PedidoController {
         return new ResponseEntity<>(pedidos.get(id), HttpStatus.OK);
     }
 
-    @PostMapping("/{id}/produtos")
-    public ResponseEntity<Void> adicionarProduto(@PathVariable int id, @RequestBody Produto produto) {
+    @PutMapping("/{id}/{idProduto}")
+    public ResponseEntity<Void> adicionarProduto(@PathVariable int id, @PathVariable int idProduto) {
+       Produto prod = ProdutoRepository.findByid(idProduto) 
         if (id < 0 || id >= pedidos.size()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        pedidos.get(id).addProduto(produto);
+        pedidos.get(id).addProduto(prod);
+
         return new ResponseEntity<>(HttpStatus.OK);
     }
 

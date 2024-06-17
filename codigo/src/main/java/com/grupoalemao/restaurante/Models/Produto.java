@@ -7,6 +7,7 @@ package com.grupoalemao.restaurante.Models;
 public abstract class Produto {
     private String nome;
     private double preco;
+    private boolean ehComida;
 
     /**
      * Construtor da classe Produto.

@@ -41,13 +41,13 @@ public class PedidoFechado extends Pedido {
             throw new IllegalArgumentException("Produto não permitido neste tipo de pedido.");
         }
 
-        long countComida = getProdutos().stream()
-                .filter(p -> p instanceof FalafelAssado || p instanceof CacarolaLegumes)
-                .count();
+        // long countComida = getProdutos().stream()
+        //         .filter(p -> p instanceof FalafelAssado || p instanceof CacarolaLegumes)
+        //         .count();
 
-        long countBebida = getProdutos().stream()
-                .filter(p -> p instanceof CopoDeSuco || p instanceof RefrigeranteOrganico || p instanceof CervejaVegana)
-                .count();
+        // long countBebida = getProdutos().stream()
+        //         .filter(p -> p instanceof CopoDeSuco || p instanceof RefrigeranteOrganico || p instanceof CervejaVegana)
+        //         .count();
 
         if (countComida > quantidadePessoas) {
             throw new IllegalArgumentException("Cada pessoa pode escolher apenas uma comida.");
@@ -56,6 +56,9 @@ public class PedidoFechado extends Pedido {
         if (countBebida >= 2 * quantidadePessoas) {
             throw new IllegalArgumentException("Cada pessoa pode escolher apenas duas bebidas ");
         }
+        //antes de adicionar, aumentar contador comida ou contador bebida
+        if(produto.ehComida()) countComida++
+        else countBebida++;
 
         super.addProduto(produto);
     }
@@ -68,11 +71,12 @@ public class PedidoFechado extends Pedido {
      *         false, caso não.
      */
     public boolean verificaProduto(Produto produto) {
-        return  produto instanceof FalafelAssado ||
-                produto instanceof CacarolaLegumes ||
-                produto instanceof CervejaVegana ||
-                produto instanceof CopoDeSuco ||
-                produto instanceof RefrigeranteOrganico;
+        if(MenuFechado.contem(produto))
+         //adicionar 
+            ;
+        else
+            //recusar
+                return false;
     }
 
     /**
