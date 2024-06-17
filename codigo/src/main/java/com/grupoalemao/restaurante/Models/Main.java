@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import com.grupoalemao.exceptions.GlobalExceptions;
+
 public class Main {
     // Objeto da classe Menu para lidar com as opções de produtos
     static Menu menu = new Menu();
@@ -13,7 +15,7 @@ public class Main {
      * 
      * @param args Os argumentos de linha de comando (não usados).
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws GlobalExceptions{
         // Scanner para entrada do usuário
         Scanner scanner = new Scanner(System.in);
         // Instância do restaurante
@@ -87,7 +89,7 @@ public class Main {
      * @param restaurante O restaurante cujas mesas serão verificadas.
      */
     private static void verificarMesas(Restaurante restaurante) {
-        System.out.println("Caso o cliente esteja null, ignore porque a mesa não está alocada");
+        //System.out.println("Caso o cliente esteja null, ignore porque a mesa não está alocada");
         
         for (Mesa mesa : Restaurante.mesas) {
             if(mesa.getCliente() == null){
@@ -140,7 +142,7 @@ public class Main {
      * @param scanner O scanner de entrada.
      * @param restaurante O restaurante onde a mesa será solicitada.
      */
-    private static void solicitarMesa(Scanner scanner, Restaurante restaurante) {
+    private static void solicitarMesa(Scanner scanner, Restaurante restaurante) throws GlobalExceptions{
         System.out.print("Digite o nome do cliente: ");
         String nomeCliente = scanner.next();
         Cliente cliente = new Cliente(nomeCliente);
@@ -178,7 +180,7 @@ public class Main {
      * @param scanner O scanner de entrada.
      * @param restaurante O restaurante onde a mesa será encerrada.
      */
-    private static void encerrarMesa(Scanner scanner, Restaurante restaurante) {
+    private static void encerrarMesa(Scanner scanner, Restaurante restaurante) throws GlobalExceptions {
         System.out.print("Digite o código da mesa a ser encerrada: ");
         int codMesa = scanner.nextInt();
         Mesa mesaEncerrar = null;
@@ -192,7 +194,7 @@ public class Main {
             restaurante.liberarMesa(codMesa);
             System.out.println("Mesa encerrada com sucesso.");
         } else {
-            System.out.println("Mesa não encontrada.");
+            throw new GlobalExceptions("Mesa com código " + codMesa + " não encontrada.");
         }
     }
 
@@ -201,21 +203,24 @@ public class Main {
      * @param scanner O scanner de entrada.
      * @param restaurante O restaurante onde a mesa será alocada.
      */
-    private static void processarFila(Scanner scanner, Restaurante restaurante) {
+    private static void processarFila(Scanner scanner, Restaurante restaurante) throws GlobalExceptions {
         System.out.print("Digite o código da mesa para alocar o cliente: ");
         int codMesa = scanner.nextInt();
         System.out.print("Digite o nome do cliente: ");
         String nomeCliente = scanner.next();
         System.out.print("Digite a quantidade de pessoas: ");
         int pessoas = scanner.nextInt();
-    
+
         Cliente cliente = new Cliente(nomeCliente);
 
-        Mesa mesa = new Mesa(codMesa, pessoas, true, cliente);
-    
-        RequisicaoReserva requisicao = new RequisicaoReserva(pessoas, cliente, mesa);
+        Mesa mesa = restaurante.getMesaByCodigo(codMesa);
 
-        restaurante.alocarMesa(requisicao);
+        if (mesa != null && mesa.estaDisponivel(pessoas)) {
+            RequisicaoReserva requisicao = new RequisicaoReserva(pessoas, cliente, mesa);
+            restaurante.alocarMesa(requisicao);
+        } else {
+            throw new GlobalExceptions("Mesa não encontrada ou não disponível.");
+        }
     }
 
     /**
@@ -223,8 +228,9 @@ public class Main {
      * 
      * @param scanner    O scanner de entrada.
      * @param restaurante O restaurante onde o pedido será adicionado.
+     * @throws GlobalExceptions 
      */
-    private static void adicionarProdutos(Scanner scanner, Restaurante restaurante) {
+    private static void adicionarProdutos(Scanner scanner, Restaurante restaurante) throws GlobalExceptions {
         System.out.println("Escolha os produtos:");
         System.out.println(menu.mostrarMenu());
         
@@ -248,6 +254,9 @@ public class Main {
         }
         
         // Exibe o total do pedido
+        if(pedido == null || pedido.getProdutos().isEmpty()){
+            throw new GlobalExceptions("Pedido vazio. Não é possível fechar a conta.");
+        }
         double[] totalConta = pedido.fecharPedido(1);
         System.out.println("Total do pedido: R$" + totalConta[0]);
     }
@@ -265,8 +274,9 @@ public class Main {
      * 
      * @param scanner O scanner de entrada.
      * @param restaurante O restaurante onde a conta será fechada.
+     * @throws GlobalExceptions 
      */
-    private static void fecharConta(Scanner scanner, Restaurante restaurante) {
+    private static void fecharConta(Scanner scanner, Restaurante restaurante) throws GlobalExceptions {
         System.out.print("Digite o código da mesa para fechar a conta: ");
         int codMesa = scanner.nextInt();
         
@@ -280,10 +290,10 @@ public class Main {
                 
                 mesa.liberar();
             } else {
-                System.out.println("Não há pedidos registrados para a Mesa " + codMesa);
+                throw new GlobalExceptions("Não há pedidos registrados para a Mesa " + codMesa);
             }
         } else {
-            System.out.println("Mesa não encontrada ou não está ocupada.");
+            throw new GlobalExceptions("Mesa não encontrada ou não está ocupada.");
         }
     }
 }
