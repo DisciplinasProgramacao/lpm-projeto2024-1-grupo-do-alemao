@@ -1,3 +1,5 @@
+package com.grupoalemao.restaurante.Controllers;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,7 +14,7 @@ import java.util.List;
 @RequestMapping("/pedidos")
 public class PedidoController {
 
-    private List<Pedido> pedidos = new ArrayList<>(); * arrumar para BD
+    private List<Pedido> pedidos = new ArrayList<>(); //* arrumar para BD
 
     @PostMapping
     public ResponseEntity<Pedido> criarPedido() {
