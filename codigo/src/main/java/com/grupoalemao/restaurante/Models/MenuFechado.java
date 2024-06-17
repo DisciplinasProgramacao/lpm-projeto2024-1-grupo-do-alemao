@@ -63,13 +63,4 @@ public class MenuFechado extends Menu {
         }
         return resultado + "Preço Fixo por pessoa: R$" + getPrecoFixo() + "\n";
     }
-
-    /**
-     * Método para obter o array de produtos.
-     * 
-     * @return Array de produtos do menu fechado.
-     */
-    public Produto[] getProdutos() {
-        return produtos;
-    }
 }

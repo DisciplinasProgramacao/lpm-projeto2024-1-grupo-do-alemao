@@ -167,7 +167,7 @@ public class Main {
                 Pedido pedido = new Pedido(); 
 
                 if (menuFechadoOpcao.equalsIgnoreCase("s")) {
-                    for (Produto produto : menuFechado.getProdutos()) {
+                    for (Produto produto : menuFechado.getProduto()) {
                         if (produto != null) {
                             pedido.addProduto(produto); 
                         }
