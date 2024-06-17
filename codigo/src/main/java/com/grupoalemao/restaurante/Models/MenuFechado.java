@@ -13,7 +13,7 @@ public class MenuFechado extends Menu {
      */
     public MenuFechado() {
         for (int i = 1; i <= 5; i++) {
-            gerarProdutoFechado(i);
+            gerarProduto(i);
         }
     }
 
@@ -32,7 +32,8 @@ public class MenuFechado extends Menu {
      * @param posicao A posição do array de produtos na qual se quer alocar o
      *                produto.
      */
-    public void gerarProdutoFechado(int posicao) {
+    @Override
+    public void gerarProduto(int posicao) {
         switch (posicao) {
             case 1:
                 produtos[posicao] = new FalafelAssado("Falafel Assado", 20);
@@ -57,13 +58,8 @@ public class MenuFechado extends Menu {
      * 
      * @return Os produtos do array de produtos do menu fechado.
      */
-    public String mostrarMenuFechado() {
-        String resultado = "Menu Fechado:\n";
-        for (int i = 1; i < produtos.length; i++) {
-            if (produtos[i] != null) {
-                resultado += i + "-" + produtos[i].getNome() + "\n";
-            }
-        }
-        return resultado + "Preço Fixo por pessoa: R$" + getPrecoFixo() + "\n";
+    public String mostrarMenu() {
+        String resultado = super.mostrarMenu();
+        return resultado + "Menu Fechado\n- Preço Fixo por pessoa: R$" + getPrecoFixo() + "\n";
     }
 }
