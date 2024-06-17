@@ -1,9 +1,6 @@
+// MenuFechado.java
 package com.grupoalemao.restaurante.Models;
 
-/**
- * Essa classe tem a responsabilidade de exibir um Menu com os produtos
- * selecionados da categoria Menu Fechado.
- */
 public class MenuFechado extends Menu {
     private Produto[] produtos = new Produto[6];
     private final double precoFixo = 32;
