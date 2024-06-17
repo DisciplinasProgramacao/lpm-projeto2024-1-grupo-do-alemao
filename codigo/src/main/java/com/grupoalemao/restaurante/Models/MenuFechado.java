@@ -62,4 +62,15 @@ public class MenuFechado extends Menu {
         String resultado = super.mostrarMenu();
         return resultado + "Menu Fechado\n- Preço Fixo por pessoa: R$" + getPrecoFixo() + "\n";
     }
+
+    public static boolean contem(Produto produto){
+        for(int i=1;i<=5;i++){
+            if(produto.getNome().equals(produtos[i].getNome())){
+                return true;
+                break;
+            }else{
+                return false;
+            }
+        }
+    }
 }
