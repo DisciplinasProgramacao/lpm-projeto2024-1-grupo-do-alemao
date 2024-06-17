@@ -194,19 +194,6 @@ public class Main {
         }
     }
 
-    /*private static void solicitarMesa(Scanner scanner, Restaurante restaurante) {
-        System.out.print("Digite o nome do cliente: ");
-        String nomeCliente = scanner.next();
-        Cliente cliente = new Cliente();
-        cliente.getNome();
-        System.out.print("Digite o número de pessoas: ");
-        int numPessoas = scanner.nextInt();
-        restaurante.adicionarCliente(nomeCliente);
-        RequisicaoReserva requisicao = new RequisicaoReserva(numPessoas, cliente, new Mesa(0, numPessoas,true,cliente));
-        restaurante.filaDeEspera.addRequisicaoNaFila(requisicao);
-        System.out.println("Requisição de mesa adicionada com sucesso!");
-    }*/
-
     /**
      * Encerra uma mesa no restaurante.
      * @param scanner O scanner de entrada.
