@@ -299,14 +299,6 @@ public class Main {
             scanner.nextLine(); 
         }
     }
-
-    /**
-     * Exibe o menu de produtos disponíveis.
-     */
-    private static void exibirMenuProdutos() {
-        System.out.println("Menu de Produtos:");
-        System.out.println(menu.mostrarMenu());
-    }
     
     /**
      * Fecha a conta da mesa.
