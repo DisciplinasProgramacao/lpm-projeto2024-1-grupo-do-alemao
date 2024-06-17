@@ -2,6 +2,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import com.grupoalemao.restaurante.Models.Pedido;
+import com.grupoalemao.restaurante.Models.Produto;
+
 import java.util.ArrayList;
 import java.util.List;
 
