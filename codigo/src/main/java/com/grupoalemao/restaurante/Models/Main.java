@@ -307,7 +307,7 @@ public class Main {
         try {
             System.out.print("Digite o código da mesa para fechar a conta: ");
             int codMesa = scanner.nextInt();
-            scanner.nextLine(); 
+            scanner.nextLine();
 
             Mesa mesa = restaurante.getMesaByCodigo(codMesa);
 
