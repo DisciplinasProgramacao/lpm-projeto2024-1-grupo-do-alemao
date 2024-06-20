@@ -3,7 +3,6 @@ package com.grupoalemao.restaurante.Controllers;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import com.grupoalemao.exceptions.GlobalExceptions;
@@ -12,7 +11,6 @@ import com.grupoalemao.restaurante.Repositories.ClienteRepository;
 
 @RestController
 @RequestMapping("/clientes")
-@Validated
 public class ClienteController {
 
     @Autowired
