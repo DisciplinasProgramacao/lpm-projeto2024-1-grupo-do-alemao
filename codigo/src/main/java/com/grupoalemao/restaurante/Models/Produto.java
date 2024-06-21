@@ -12,20 +12,22 @@ public abstract class Produto {
     /**
      * Construtor da classe Produto.
      * 
-     * @param nome  Representa o nome do produto.
-     * @param preco Representa o preço do produto.
+     * @param nome     Representa o nome do produto.
+     * @param preco    Representa o preço do produto.
+     * @param ehComida Representa o tipo do produto.
      */
-    public Produto(String nome, double preco) {
-        if(nome.length()>3){
+    public Produto(String nome, double preco, boolean ehComida) {
+        if (nome.length() > 3) {
             this.nome = nome;
         }
-        if(preco>=0){
+        if (preco >= 0) {
             this.preco = preco;
         }
+        this.ehComida = ehComida;
     }
 
     /**
-     * Método que retorna o nome do produto.
+     * Método que retorna o nome do produtos.
      * 
      * @return Uma string que é o nome do produto.
      */
@@ -41,5 +43,58 @@ public abstract class Produto {
     public double getPreco() {
         return preco;
     }
-}
 
+    /**
+     * Método que retorna se o produto é comida ou não.
+     * 
+     * @return True se for comida, false caso contrário.
+     */
+    public boolean isComida() {
+        return ehComida;
+    }
+
+    /**
+     * Método para identificar o tipo do produto.
+     * 
+     * @return True se for do tipo falafel, false caso contrário.
+     */
+    public boolean isFalafelAssado() {
+        return false;
+    }
+
+    /**
+     * Método para identificar o tipo do produto.
+     * 
+     * @return True se for do tipo caçarola de legumes, false caso contrário.
+     */
+    public boolean isCacarolaLegumes() {
+        return false;
+    }
+
+    /**
+     * Método para identificar o tipo do produto.
+     * 
+     * @return True se for do tipo copo de suco, false caso contrário.
+     */
+    public boolean isCopoDeSuco() {
+        return false;
+    }
+
+    /**
+     * Método para identificar o tipo do produto.
+     * 
+     * @return True se for do tipo refrigerante, false caso contrário.
+     */
+    public boolean isRefrigeranteOrganico() {
+        return false;
+    }
+
+    /**
+     * Método para identificar o tipo do produto.
+     * 
+     * @return True se for do tipo cerveja, false caso contrário.
+     */
+    public boolean isCervejaVegana() {
+        return false;
+    }
+}

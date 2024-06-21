@@ -55,19 +55,20 @@ public class MenuFechado extends Menu {
      * 
      * @return Os produtos do array de produtos do menu fechado.
      */
+    @Override
     public String mostrarMenu() {
         String resultado = super.mostrarMenu();
-        return resultado + "Menu Fechado\n- Preço Fixo por pessoa: R$" + getPrecoFixo() + "\n";
+        return resultado + "Menu Fechado\n --Preço Fixo por pessoa: R$" + getPrecoFixo() + "\n";
     }
 
-    public static boolean contem(Produto produto){
-        for(int i=1;i<=5;i++){
-            if(produto.getNome().equals(produtos[i].getNome())){
-                return true;
-                break;
-            }else{
-                return false;
-            }
-        }
+    /**
+     * Método para verificar se o produto solicitado no pedido fechado é um dos produtos disponíveis
+     * para a modalidade Menu Fechado.
+     * @param produto Produto escolhido no pedido fechado.
+     * @return True se o produto é dos tipos disponíveis, False caso contrário.
+     */
+    public static boolean contemProdutoNoMenuFechado(Produto produto){
+        return (produto.isFalafelAssado() || produto.isCacarolaLegumes() || produto.isCopoDeSuco() ||
+            produto.isRefrigeranteOrganico() || produto.isCervejaVegana());
     }
 }

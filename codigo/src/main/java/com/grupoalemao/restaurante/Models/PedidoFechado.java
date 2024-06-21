@@ -71,7 +71,7 @@ public class PedidoFechado extends Pedido {
      *         false, caso não.
      */
     public boolean verificaProduto(Produto produto) {
-        if(MenuFechado.contem(produto))
+        if(MenuFechado.contemProdutoNoMenuFechado(produto))
          //adicionar 
             ;
         else
