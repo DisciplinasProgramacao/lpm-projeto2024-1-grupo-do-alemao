@@ -341,6 +341,6 @@ public class Main {
         System.out.println("1. Menu Normal");
         System.out.println(menu.mostrarMenu());
         System.out.println("2. Menu Fechado");
-        System.out.println(menuFechado.mostrarMenuFechado());
+        System.out.println(menuFechado.mostrarMenu());
     }
 }
