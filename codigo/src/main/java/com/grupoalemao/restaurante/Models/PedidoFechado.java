@@ -10,6 +10,8 @@ public class PedidoFechado extends Pedido {
     // #region atributos
 
     private int quantidadePessoas;
+    private int contComida;
+    private int contBebida;
     private static final double VALOR_POR_PESSOA = 32.0;
 
     // #endregion
@@ -25,12 +27,15 @@ public class PedidoFechado extends Pedido {
      */
     public PedidoFechado(int quantidadePessoas) {
         this.quantidadePessoas = quantidadePessoas;
+        contComida = 0;
+        contBebida = 0;
     }
 
     // #endregion
 
     /**
-     * Método para adicionar um produto na lista produtos da superclasse Pedido, lança
+     * Método para adicionar um produto na lista produtos da superclasse Pedido,
+     * lança
      * exceções caso os requisitos não sejam obedecidos.
      * 
      * @param produto representa o produto a ser adicionado.
@@ -41,24 +46,19 @@ public class PedidoFechado extends Pedido {
             throw new IllegalArgumentException("Produto não permitido neste tipo de pedido.");
         }
 
-        // long countComida = getProdutos().stream()
-        //         .filter(p -> p instanceof FalafelAssado || p instanceof CacarolaLegumes)
-        //         .count();
-
-        // long countBebida = getProdutos().stream()
-        //         .filter(p -> p instanceof CopoDeSuco || p instanceof RefrigeranteOrganico || p instanceof CervejaVegana)
-        //         .count();
-
-        if (countComida > quantidadePessoas) {
+        if (contComida > quantidadePessoas) {
             throw new IllegalArgumentException("Cada pessoa pode escolher apenas uma comida.");
         }
 
-        if (countBebida >= 2 * quantidadePessoas) {
+        if (contBebida >= 2 * quantidadePessoas) {
             throw new IllegalArgumentException("Cada pessoa pode escolher apenas duas bebidas ");
         }
-        //antes de adicionar, aumentar contador comida ou contador bebida
-        if(produto.ehComida()) countComida++
-        else countBebida++;
+
+        if (produto.isComida()) {
+            contComida++;
+        } else {
+            contBebida++;
+        }
 
         super.addProduto(produto);
     }
@@ -71,12 +71,7 @@ public class PedidoFechado extends Pedido {
      *         false, caso não.
      */
     public boolean verificaProduto(Produto produto) {
-        if(MenuFechado.contemProdutoNoMenuFechado(produto))
-         //adicionar 
-            ;
-        else
-            //recusar
-                return false;
+        return MenuFechado.contemProdutoNoMenuFechado(produto);
     }
 
     /**

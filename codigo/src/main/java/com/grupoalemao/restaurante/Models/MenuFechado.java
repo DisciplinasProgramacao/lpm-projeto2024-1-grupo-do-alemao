@@ -2,13 +2,13 @@
 package com.grupoalemao.restaurante.Models;
 
 public class MenuFechado extends Menu {
-    private Produto[] produtos = new Produto[6];
     private final double precoFixo = 32;
 
     /**
      * Construtor simples: popula o array de produtos com os produtos selecionados.
      */
     public MenuFechado() {
+        produtos = new Produto[6];
         for (int i = 1; i <= 5; i++) {
             gerarProduto(i);
         }

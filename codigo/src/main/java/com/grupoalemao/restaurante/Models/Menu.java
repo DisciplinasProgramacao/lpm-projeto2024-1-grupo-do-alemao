@@ -7,7 +7,7 @@ public class Menu {
      
     // #region atributos
 
-    private Produto[] produtos = new Produto[12];
+    protected Produto[] produtos;
 
     // #endregion
     
@@ -18,7 +18,8 @@ public class Menu {
     /**
      * Construtor simples: popula o array de produtos.
      */
-    public Menu(){
+    public Menu() {
+        produtos = new Produto[12];
         for(int i=1; i<=11;i++)
             gerarProduto(i);
     }
