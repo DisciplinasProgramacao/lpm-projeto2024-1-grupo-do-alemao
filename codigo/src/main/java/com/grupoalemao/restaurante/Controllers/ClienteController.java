@@ -3,8 +3,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RestController
 @RequestMapping("/clientes")
 public class ClienteController {
@@ -23,12 +21,6 @@ public class ClienteController {
         return clienteRepository.findById(id)
                 .map(cliente -> new ResponseEntity<>(cliente, HttpStatus.OK))
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
-    }
-
-    @GetMapping
-    public ResponseEntity<List<Cliente>> listarClientes() {
-        List<Cliente> clientes = clienteRepository.findAll();
-        return new ResponseEntity<>(clientes, HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
