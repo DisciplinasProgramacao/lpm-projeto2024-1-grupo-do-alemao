@@ -28,7 +28,7 @@ public class Menu {
 
     /**
      * Método para recuperar um produto de determinada posição do array de produtos.
-     * @param pos A posição da qual se quer obter o produto.
+     * @param pos 
      * @return Produto, caso tenha sido encontrado, null, caso não.
      */
     public Produto getProduto(int pos){

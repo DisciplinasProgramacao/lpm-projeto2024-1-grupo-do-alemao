@@ -5,6 +5,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import com.grupoalemao.restaurante.Models.Cliente;
+import com.grupoalemao.restaurante.Repositories.ClienteRepository;
+
 import java.util.List;
 
 @RestController

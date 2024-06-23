@@ -110,4 +110,9 @@ public class Pedido {
     public void setId(Long id) {
         this.id = id;
     }
+
+    public void removerProduto(Integer produtoId) {
+      
+        throw new UnsupportedOperationException("Unimplemented method 'removerProduto'");
+    }
 }

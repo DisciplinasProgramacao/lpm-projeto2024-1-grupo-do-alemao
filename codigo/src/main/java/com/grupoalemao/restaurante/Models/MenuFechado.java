@@ -74,4 +74,9 @@ public class MenuFechado extends Menu {
                 "Refrigerante Orgânico".equals(produto.getCategoria()) || 
                 "Cerveja Vegana".equals(produto.getCategoria()));
     }
+
+    public Produto[] getProduto() {
+       
+        throw new UnsupportedOperationException("Unimplemented method 'getProduto'");
+    }
 }

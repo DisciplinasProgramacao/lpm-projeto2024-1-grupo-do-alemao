@@ -4,7 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import com.grupoalemao.restaurante.Repositories.*;
+import com.grupoalemao.restaurante.Models.*;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -39,8 +42,9 @@ public class PedidoController {
 
     @PutMapping("/{id}/produtos/{produtoId}")
     public ResponseEntity<Void> adicionarProduto(@PathVariable Integer id, @PathVariable Integer produtoId) {
+        Long produtoIdLong = Long.valueOf(produtoId); 
         Optional<Pedido> optionalPedido = pedidoRepository.findById(id);
-        Optional<Produto> optionalProduto = produtoRepository.findById(produtoId);
+        Optional<Produto> optionalProduto = produtoRepository.findById(produtoIdLong);
 
         if (optionalPedido.isPresent() && optionalProduto.isPresent()) {
             Pedido pedido = optionalPedido.get();
@@ -59,7 +63,7 @@ public class PedidoController {
 
         if (optionalPedido.isPresent()) {
             Pedido pedido = optionalPedido.get();
-            pedido.removerProdutoPeloId(produtoId); // Supondo que haja um método para remover pelo ID
+            pedido.removerProduto(produtoId); // Supondo que haja um método para remover pelo ID
             pedidoRepository.save(pedido);
             return new ResponseEntity<>(HttpStatus.OK);
         } else {
