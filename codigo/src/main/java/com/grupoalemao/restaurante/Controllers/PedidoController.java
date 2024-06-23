@@ -29,12 +29,6 @@ public class PedidoController {
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-    @GetMapping
-    public ResponseEntity<List<Pedido>> listarPedidos() {
-        List<Pedido> pedidos = pedidoRepository.findAll();
-        return new ResponseEntity<>(pedidos, HttpStatus.OK);
-    }
-
     @PutMapping("/{id}/produtos/{produtoId}")
     public ResponseEntity<Void> adicionarProduto(@PathVariable Integer id, @PathVariable Integer produtoId) {
         Optional<Pedido> optionalPedido = pedidoRepository.findById(id);
