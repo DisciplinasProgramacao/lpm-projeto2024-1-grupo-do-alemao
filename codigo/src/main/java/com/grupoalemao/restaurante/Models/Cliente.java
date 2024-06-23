@@ -7,6 +7,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.grupoalemao.restaurante.exceptions.GlobalExceptions;
+
 /**
  * Esta classe tem a responsabilidade de armazenar os dados pessoais de um
  * cliente do restaurante.
@@ -33,8 +35,9 @@ public class Cliente {
      * Construtor da classe Cliente.
      * 
      * @param n   Representa o nome do cliente.
+     * @throws GlobalExceptions 
      */
-    public Cliente(String n) {
+    public Cliente(String n) throws GlobalExceptions{
         setNome(n);
     }
 
@@ -43,10 +46,11 @@ public class Cliente {
      * 
      * @param nome Representa o nome do cliente
      */
-    public void setNome(String nome) {
-        if (nome.length() > 3) {
-            this.nome = nome;
+    public void setNome(String nome) throws GlobalExceptions{
+        if(nome == null){
+            throw new GlobalExceptions("Nome do cliente deve ser não nulo.");
         }
+            this.nome = nome;
     }
 
     /**
