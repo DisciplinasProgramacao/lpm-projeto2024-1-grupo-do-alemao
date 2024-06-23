@@ -9,10 +9,10 @@ public class CacarolaLegumes extends Produto {
     /**
      * Método para identificar o tipo do produto.
      * 
-     * @return True se for do tipo caçarola de legumes, false caso contrário.
+     * @return O tipo do produto.
      */
     @Override
-    public boolean isCacarolaLegumes() {
-        return true;
+    public String getCategoria() {
+        return "Caçarola de Legumes";
     }
 }

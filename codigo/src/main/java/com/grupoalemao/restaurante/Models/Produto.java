@@ -53,48 +53,5 @@ public abstract class Produto {
         return ehComida;
     }
 
-    /**
-     * Método para identificar o tipo do produto.
-     * 
-     * @return True se for do tipo falafel, false caso contrário.
-     */
-    public boolean isFalafelAssado() {
-        return false;
-    }
-
-    /**
-     * Método para identificar o tipo do produto.
-     * 
-     * @return True se for do tipo caçarola de legumes, false caso contrário.
-     */
-    public boolean isCacarolaLegumes() {
-        return false;
-    }
-
-    /**
-     * Método para identificar o tipo do produto.
-     * 
-     * @return True se for do tipo copo de suco, false caso contrário.
-     */
-    public boolean isCopoDeSuco() {
-        return false;
-    }
-
-    /**
-     * Método para identificar o tipo do produto.
-     * 
-     * @return True se for do tipo refrigerante, false caso contrário.
-     */
-    public boolean isRefrigeranteOrganico() {
-        return false;
-    }
-
-    /**
-     * Método para identificar o tipo do produto.
-     * 
-     * @return True se for do tipo cerveja, false caso contrário.
-     */
-    public boolean isCervejaVegana() {
-        return false;
-    }
+    public abstract String getCategoria();
 }

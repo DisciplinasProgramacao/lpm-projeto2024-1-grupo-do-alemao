@@ -9,10 +9,10 @@ public class CervejaVegana extends Produto {
     /**
      * Método para identificar o tipo do produto.
      * 
-     * @return True se for do tipo cerveja, false caso contrário.
+     * @return O tipo do produto.
      */
     @Override
-    public boolean isCervejaVegana() {
-        return true;
+    public String getCategoria() {
+        return "Cerveja Vegana";
     }
 }

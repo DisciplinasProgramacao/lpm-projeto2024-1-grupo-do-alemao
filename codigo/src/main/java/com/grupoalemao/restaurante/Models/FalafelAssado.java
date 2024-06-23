@@ -9,10 +9,10 @@ public class FalafelAssado extends Produto {
     /**
      * Método para identificar o tipo do produto.
      * 
-     * @return True se for do tipo falafel, false caso contrário.
+     * @return O tipo do produto.
      */
     @Override
-    public boolean isFalafelAssado() {
-        return true;
+    public String getCategoria() {
+        return "Falafel Assado";
     }
 }

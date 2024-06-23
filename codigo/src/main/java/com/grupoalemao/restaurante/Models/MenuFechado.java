@@ -68,7 +68,10 @@ public class MenuFechado extends Menu {
      * @return True se o produto é dos tipos disponíveis, False caso contrário.
      */
     public static boolean contemProdutoNoMenuFechado(Produto produto){
-        return (produto.isFalafelAssado() || produto.isCacarolaLegumes() || produto.isCopoDeSuco() ||
-            produto.isRefrigeranteOrganico() || produto.isCervejaVegana());
+        return ("Falafel Assado".equals(produto.getCategoria()) || 
+                "Caçarola de Legumes".equals(produto.getCategoria()) ||
+                "Copo de suco".equals(produto.getCategoria()) || 
+                "Refrigerante Orgânico".equals(produto.getCategoria()) || 
+                "Cerveja Vegana".equals(produto.getCategoria()));
     }
 }
