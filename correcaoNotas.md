@@ -66,7 +66,7 @@ Correções:
 
 Diagrama com Pedido, sem relação com requisições - Todos - 5,5
 
-Menu fechado em outro commit - getProduto x gerarProduto - Barbara - 10
+Menu fechado em outro commit - getProduto x gerarProduto - Thais - 10
 
 Produtos - Barbara - 14
 
