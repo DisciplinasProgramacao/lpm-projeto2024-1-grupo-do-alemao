@@ -3,6 +3,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Optional;
+
 @RestController
 @RequestMapping("/pedidos")
 public class PedidoController {
@@ -27,36 +29,49 @@ public class PedidoController {
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-    @PostMapping("/{id}/produtos")
-    public ResponseEntity<Void> adicionarProduto(@PathVariable Integer id, @RequestBody Produto produto) {
-        return pedidoRepository.findById(id)
-                .map(pedido -> {
-                    Produto savedProduto = produtoRepository.save(produto);
-                    pedido.addProduto(savedProduto);
-                    pedidoRepository.save(pedido);
-                    return new ResponseEntity<Void>(HttpStatus.OK);
-                })
-                .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    @GetMapping
+    public ResponseEntity<List<Pedido>> listarPedidos() {
+        List<Pedido> pedidos = pedidoRepository.findAll();
+        return new ResponseEntity<>(pedidos, HttpStatus.OK);
     }
 
-    @DeleteMapping("/{id}/produtos")
-    public ResponseEntity<Void> removerProduto(@PathVariable Integer id, @RequestBody Produto produto) {
-        return pedidoRepository.findById(id)
-                .map(pedido -> {
-                    pedido.removerProduto(produto);
-                    pedidoRepository.save(pedido);
-                    return new ResponseEntity<Void>(HttpStatus.OK);
-                })
-                .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    @PutMapping("/{id}/produtos/{produtoId}")
+    public ResponseEntity<Void> adicionarProduto(@PathVariable Integer id, @PathVariable Integer produtoId) {
+        Optional<Pedido> optionalPedido = pedidoRepository.findById(id);
+        Optional<Produto> optionalProduto = produtoRepository.findById(produtoId);
+
+        if (optionalPedido.isPresent() && optionalProduto.isPresent()) {
+            Pedido pedido = optionalPedido.get();
+            Produto produto = optionalProduto.get();
+            pedido.addProduto(produto);
+            pedidoRepository.save(pedido);
+            return new ResponseEntity<>(HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @DeleteMapping("/{id}/produtos/{produtoId}")
+    public ResponseEntity<Void> removerProduto(@PathVariable Integer id, @PathVariable Integer produtoId) {
+        Optional<Pedido> optionalPedido = pedidoRepository.findById(id);
+
+        if (optionalPedido.isPresent()) {
+            Pedido pedido = optionalPedido.get();
+            pedido.removerProdutoPeloId(produtoId); // Supondo que haja um método para remover pelo ID
+            pedidoRepository.save(pedido);
+            return new ResponseEntity<>(HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 
     @GetMapping("/{id}/fechar/{pessoas}")
     public ResponseEntity<double[]> fecharPedido(@PathVariable Integer id, @PathVariable int pessoas) {
-        return pedidoRepository.findById(id)
-                .map(pedido -> {
-                    double[] resultado = pedido.fecharPedido(pessoas);
-                    return new ResponseEntity<>(resultado, HttpStatus.OK);
-                })
-                .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+        Optional<Pedido> optionalPedido = pedidoRepository.findById(id);
+
+        return optionalPedido.map(pedido -> {
+            double[] resultado = pedido.fecharPedido(pessoas);
+            return new ResponseEntity<>(resultado, HttpStatus.OK);
+        }).orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 }
