@@ -162,30 +162,27 @@ private static void verificarMesas(Restaurante restaurante) {
      * @param scanner O scanner de entrada.
      * @param restaurante O restaurante onde a mesa será solicitada.
      */
-    private static void solicitarMesa(Scanner scanner, Restaurante restaurante) throws GlobalExceptions{
+    private static void solicitarMesa(Scanner scanner, Restaurante restaurante) throws GlobalExceptions {
         try {
             System.out.print("Digite o nome do cliente: ");
             String nomeCliente = scanner.nextLine();
             Cliente cliente = new Cliente(nomeCliente);
             System.out.print("Digite o número de pessoas: ");
             int numPessoas = scanner.nextInt();
-            scanner.nextLine(); 
-
+            scanner.nextLine();
+    
             Mesa mesaDisponivel = encontrarMesaDisponivel(numPessoas, restaurante);
             if (mesaDisponivel != null) {
                 System.out.print("Deseja um menu fechado? (s/n): ");
                 String menuFechadoOpcao = scanner.nextLine();
-
-                Pedido pedido = new Pedido(); 
-
+    
+                Pedido pedido;
                 if (menuFechadoOpcao.equalsIgnoreCase("s")) {
-                    for (Produto produto : menuFechado.getProduto()) {
-                        if (produto != null) {
-                            pedido.addProduto(produto); 
-                        }
-                    }
+                    pedido = new PedidoFechado(numPessoas);
+                } else {
+                    pedido = new Pedido();
                 }
-
+    
                 RequisicaoReserva requisicao = new RequisicaoReserva(numPessoas, cliente, mesaDisponivel);
                 restaurante.alocarMesa(requisicao);
                 System.out.println("Mesa " + mesaDisponivel.getCod() + " alocada com sucesso para " + numPessoas + " pessoas.");
@@ -196,12 +193,13 @@ private static void verificarMesas(Restaurante restaurante) {
             }
         } catch (InputMismatchException e) {
             System.out.println("Número de pessoas inválido. Por favor, insira um número.");
-            scanner.nextLine(); 
+            scanner.nextLine();
         } catch (Exception e) {
             System.out.println("Erro ao solicitar mesa: " + e.getMessage());
-            scanner.nextLine(); 
+            scanner.nextLine();
         }
     }
+    
 
     /**
      * Encerra uma mesa no restaurante.
