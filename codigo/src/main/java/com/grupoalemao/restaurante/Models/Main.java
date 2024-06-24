@@ -338,10 +338,10 @@ private static void adicionarProdutos(Scanner scanner, Restaurante restaurante) 
 }
 
 
-    /**
+ /**
  * Fecha a conta da mesa.
- * 
- * @param scanner O scanner de entrada.
+ *
+ * @param scanner     O scanner de entrada.
  * @param restaurante O restaurante onde a conta será fechada.
  */
 private static void fecharConta(Scanner scanner, Restaurante restaurante) {
@@ -355,7 +355,12 @@ private static void fecharConta(Scanner scanner, Restaurante restaurante) {
         if (mesa != null && !mesa.estaDisponivel(0)) {
             Pedido pedido = mesa.getPedido();
             if (pedido != null) {
-                double[] totalConta = pedido.fecharPedido(mesa.getCapacidade());
+                double[] totalConta;
+                if (pedido instanceof PedidoFechado) {
+                    totalConta = ((PedidoFechado) pedido).fecharPedido(mesa.getCapacidade());
+                } else {
+                    totalConta = pedido.fecharPedido(mesa.getCapacidade());
+                }
                 System.out.println("Total da conta da Mesa " + codMesa + ": R$" + totalConta[0]);
 
                 // Remover o pedido associado à mesa após fechar a conta
@@ -368,10 +373,10 @@ private static void fecharConta(Scanner scanner, Restaurante restaurante) {
         }
     } catch (InputMismatchException e) {
         System.out.println("Código de mesa inválido. Por favor, insira um número.");
-        scanner.nextLine(); 
+        scanner.nextLine();
     } catch (Exception e) {
         System.out.println("Erro ao fechar conta: " + e.getMessage());
-        scanner.nextLine(); 
+        scanner.nextLine();
     }
 }
 
