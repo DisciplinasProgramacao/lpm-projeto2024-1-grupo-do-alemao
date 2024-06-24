@@ -3,10 +3,9 @@ package com.grupoalemao.restaurante.Models;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+import java.util.ArrayList;
 
 import com.grupoalemao.restaurante.exceptions.GlobalExceptions;
-
-import java.util.ArrayList;
 
 /**
  * Terceira versão da classe Restaurante usando stream e collections. Esta classe permite ao usuário ou gerente adicionar e remover clientes de uma lista,
@@ -14,19 +13,21 @@ import java.util.ArrayList;
  * Deve ser melhorada com o tempo, de acordo com o que o professor colocar.
  */
 public class Restaurante {
-    //#region atributos
+
     static List<Mesa> mesas = new ArrayList<>();
     FilaDeEspera filaDeEspera = new FilaDeEspera();
     List<Cliente> clientes = new ArrayList<>();
-    private Menu menu;
-    //#endregion
+    private static Menu menu;
+    private static MenuFechado menuFechado;
 
-    // Não há necessidade de um construtor, por isso não foi implementado
-    // Construtor sem argumentos
-    public Restaurante() {
-        // Inicialize os atributos do objeto aqui, se necessário
-    }
-
+    /**
+     * Cria um novo pedido para uma mesa com base na lista de IDs de produtos fornecidos.
+     *
+     * @param mesa       A mesa para a qual o pedido está sendo criado.
+     * @param produtoIds A lista de IDs de produtos para o pedido.
+     * @return O pedido criado.
+     * @throws GlobalExceptions Se algum produto na lista de IDs não for encontrado no menu.
+     */
     public Pedido criarPedido(Mesa mesa, List<Integer> produtoIds) throws GlobalExceptions {
         Pedido pedido = new Pedido();
         pedido.setMesa(mesa);
@@ -42,28 +43,43 @@ public class Restaurante {
         return pedido;
     }
 
-    // Adiciona um produto ao pedido específico
+    /**
+     * Adiciona um produto ao pedido específico.
+     *
+     * @param pedido  O pedido ao qual o produto será adicionado.
+     * @param produto O produto a ser adicionado ao pedido.
+     * @throws GlobalExceptions Se o produto for nulo.
+     */
     public void adicionarProdutoAoPedido(Pedido pedido, Produto produto) throws GlobalExceptions {
-        
         if (produto != null) {
-            pedido.addProduto(produto);
+            if (pedido instanceof PedidoFechado) {
+                ((PedidoFechado) pedido).addProduto(produto);
+            } else {
+                pedido.addProduto(produto);
+            }
         } else {
-            throw new GlobalExceptions("Produto não encontrado no menu.");
+            throw new GlobalExceptions("Produto está errado.");
         }
     }
 
-    public void exibirMenu() {
+    /**
+     * Exibe o menu do restaurante no console.
+     */
+    public static void exibirMenu() {
         System.out.println(menu.mostrarMenu());
     }
 
-    //#region métodos
+    public static void exibirMenuFechado() {
+        System.out.println(menuFechado.mostrarMenu());
+    }
 
     /**
      * Adiciona um novo cliente à lista de clientes.
      *
      * @param nome O nome do cliente a ser adicionado.
+     * @throws GlobalExceptions Se ocorrer algum erro ao adicionar o cliente.
      */
-    public void adicionarCliente(String nome) throws GlobalExceptions{
+    public void adicionarCliente(String nome) throws GlobalExceptions {
         Cliente cliente = new Cliente(nome);
         clientes.add(cliente);
     }
@@ -80,13 +96,13 @@ public class Restaurante {
     }
 
     /**
-     * Adiciona uma mesa à lista de mesas com base no código, capacidade e nome do cliente caso já esteja alocada.
-     * Caso não esteja, o cliente deverá ser null.
+     * Adiciona uma mesa à lista de mesas com base no código, capacidade e cliente associado.
      *
-     * @param cod        O código da mesa que deverá ser adicionada.
+     * @param cod        O código da mesa a ser adicionada.
      * @param capacidade A capacidade da mesa.
      * @param disponivel A disponibilidade da mesa.
-     * @param cliente    O cliente que está ocupando a mesa, ou null se não estiver ocupada.
+     * @param cliente    O cliente associado à mesa, ou null se não houver cliente associado.
+     * @param pedido     O pedido associado à mesa, ou null se não houver pedido associado.
      */
     public void adicionarMesa(int cod, int capacidade, boolean disponivel, Cliente cliente, Pedido pedido) {
         Mesa mesa = new Mesa(cod, capacidade, disponivel, cliente, pedido);
@@ -105,8 +121,7 @@ public class Restaurante {
     }
 
     /**
-     * Aloca uma mesa para um cliente com base no código da mesa e no nome do cliente fornecidos.
-     * Se a mesa estiver disponível, ela será alocada para o cliente especificado. Caso contrário, a requisição será adicionada na fila de espera.
+     * Aloca uma mesa para um cliente com base na requisição de reserva fornecida.
      *
      * @param requisicao A requisição de reserva que contém as informações do cliente e da mesa.
      */
@@ -128,7 +143,6 @@ public class Restaurante {
 
     /**
      * Libera uma mesa com base no código da mesa fornecido.
-     * Se a mesa estiver ocupada, ela será liberada.
      *
      * @param codMesa O código da mesa a ser liberada.
      */
@@ -143,7 +157,7 @@ public class Restaurante {
     }
 
     /**
-     * Inicializa as mesas com todos os dados fornecidos de acordo com o requisito do trabalho: o código, a capacidade e se está disponível.
+     * Inicializa as mesas do restaurante com os dados pré-definidos.
      */
     public static void inicializaMesas() {
         mesas.add(new Mesa(1, 4, true, null, null));
@@ -170,6 +184,18 @@ public class Restaurante {
                 .findFirst()
                 .orElse(null);
     }
+
+    public static Menu getMenu() {
+        return menu;
+    }
     
-    //#endregion
+    public static MenuFechado getMenuFechado() {
+        return menuFechado;
+    }
+    
+    public static void inicializarMenus() {
+        menu = new Menu();
+        menuFechado = new MenuFechado();
+    }
+    
 }

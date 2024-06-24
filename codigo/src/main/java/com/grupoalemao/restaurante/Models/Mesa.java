@@ -31,6 +31,7 @@ public class Mesa {
     @OneToOne(mappedBy = "pedido", cascade = CascadeType.ALL, orphanRemoval = true)
     private Pedido pedido;
 
+
     /**
      * Construtor padrão da classe Mesa.
      */

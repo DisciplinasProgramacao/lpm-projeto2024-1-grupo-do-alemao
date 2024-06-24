@@ -384,10 +384,11 @@ private static void fecharConta(Scanner scanner, Restaurante restaurante) {
      * Exibe os cardápios disponíveis, incluindo o menu fechado.
      */
     private static void exibirCardapios() {
+        Restaurante.inicializarMenus();
         System.out.println("Cardápios Disponíveis:");
         System.out.println("1. Menu Normal");
-        System.out.println(menu.mostrarMenu());
+        System.out.println(Restaurante.getMenu().mostrarMenu());
         System.out.println("2. Menu Fechado");
-        System.out.println(menuFechado.mostrarMenu());
+        System.out.println(Restaurante.getMenuFechado().mostrarMenu());
     }
 }
