@@ -28,6 +28,15 @@ public class Pedido {
     }
 
     /**
+     * Obtém o ID do pedido.
+     * 
+     * @return O ID do pedido.
+     */
+    public Long getId() {
+        return id;
+    }
+
+    /**
      * Adiciona um produto ao pedido.
      * 
      * @param produto O produto a ser adicionado ao pedido.
@@ -75,44 +84,8 @@ public class Pedido {
         return new double[] { totalComTaxa, valorPorPessoa };
     }
 
-    /**
-     * Obtém a mesa associada a este pedido.
-     * 
-     * @return A mesa associada a este pedido.
-     */
-    public Mesa getMesa() {
-        return mesa;
-    }
-
-    /**
-     * Define a mesa associada a este pedido.
-     * 
-     * @param mesa A mesa a ser associada a este pedido.
-     */
-    public void setMesa(Mesa mesa) {
-        this.mesa = mesa;
-    }
-
-    /**
-     * Obtém o ID do pedido.
-     * 
-     * @return O ID do pedido.
-     */
-    public Long getId() {
-        return id;
-    }
-
-    /**
-     * Define o ID do pedido.
-     * 
-     * @param id O ID a ser definido.
-     */
-    public void setId(Long id) {
-        this.id = id;
-    }
-
     public void removerProduto(Integer produtoId) {
-      
+
         throw new UnsupportedOperationException("Unimplemented method 'removerProduto'");
     }
 }

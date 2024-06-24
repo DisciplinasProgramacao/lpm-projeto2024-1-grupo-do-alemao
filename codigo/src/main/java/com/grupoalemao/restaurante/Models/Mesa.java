@@ -130,19 +130,11 @@ public class Mesa {
     }
 
     /**
-     * Define o pedido associado à mesa.
-     *
-     * @param pedido O pedido associado à mesa.
-     */
-    public void setPedido(Pedido pedido) {
-        this.pedido = pedido;
-    }
-
-    /**
      * Muda o status da mesa para ocupada ou desocupada.
      *
      * @param cliente O cliente que ocupará a mesa.
-     * @return true se a mesa estava disponível antes da mudança, false caso contrário.
+     * @return true se a mesa estava disponível antes da mudança, false caso
+     *         contrário.
      */
     public boolean mudarStatusMesa(Cliente cliente) {
         boolean estavaDisponivel = estaDisponivel(0);
@@ -163,12 +155,13 @@ public class Mesa {
      * Verifica se a mesa está disponível para um número específico de pessoas.
      *
      * @param pessoas O número de pessoas.
-     * @return true se a mesa estiver disponível para o número de pessoas especificado, false caso contrário.
+     * @return true se a mesa estiver disponível para o número de pessoas
+     *         especificado, false caso contrário.
      */
     public boolean estaDisponivel(int pessoas) {
         return pessoas <= capacidade && cliente == null;
     }
-    
+
     /**
      * Libera a mesa, tornando-a disponível para uso.
      */
