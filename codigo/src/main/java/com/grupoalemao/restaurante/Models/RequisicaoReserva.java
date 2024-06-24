@@ -115,6 +115,9 @@ public class RequisicaoReserva {
         return "Valor total do pedido: R$" + valorPedido[0]+"\nValor total por pessoa: R$" + valorPedido[1];
     }
 
+     /**
+     * Método para aceitar o pedido
+     */
     public void setPedido(Pedido pedido) {
         throw new UnsupportedOperationException("Unimplemented method 'setPedido'");
     }
