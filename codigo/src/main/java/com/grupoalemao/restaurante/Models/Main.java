@@ -89,9 +89,8 @@ public class Main {
         System.out.println("4 - Encerrar Mesa");
         System.out.println("5 - Processar Fila");
         System.out.println("6 - Adicionar Produtos");
-        System.out.println("7 - Exibir Menu de Produtos");
-        System.out.println("8 - Fechar Conta da Mesa");
-        System.out.println("9 - Exibir Cardápios");
+        System.out.println("7 - Fechar Conta da Mesa");
+        System.out.println("8 - Exibir Cardápios");
         System.out.println("0 - Sair");
         System.out.print("Digite sua Opção: ");
     }
@@ -165,7 +164,7 @@ public class Main {
                 System.out.print("Deseja um menu fechado? (s/n): ");
                 String menuFechadoOpcao = scanner.nextLine();
 
-                Pedido pedido = new Pedido(); 
+                Pedido pedido = new PedidoFechado(numPessoas); 
 
                 if (menuFechadoOpcao.equalsIgnoreCase("s")) {
                     for (Produto produto : menuFechado.getProduto()) {
@@ -176,6 +175,7 @@ public class Main {
                 }
 
                 RequisicaoReserva requisicao = new RequisicaoReserva(numPessoas, cliente, mesaDisponivel);
+                requisicao.setPedido(pedido);
                 restaurante.alocarMesa(requisicao);
                 System.out.println("Mesa " + mesaDisponivel.getCod() + " alocada com sucesso para " + numPessoas + " pessoas.");
             } else {
@@ -285,6 +285,7 @@ public class Main {
                 System.out.print("Digite o número do próximo produto (0 para finalizar): ");
                 opcaoProduto = scanner.nextInt();
                 scanner.nextLine(); 
+              
             }
 
             double[] totalConta = pedido.fecharPedido(1);
