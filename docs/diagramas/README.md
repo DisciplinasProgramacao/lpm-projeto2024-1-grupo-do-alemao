@@ -10,3 +10,7 @@
 # 03 - Atualização do Diagrama de classe
 
 ![Diagrama UML- Grupo Alemão](https://github.com/DisciplinasProgramacao/lpm-projeto2024-1-grupo-do-alemao/assets/145265675/2098708f-a01f-4e10-9827-4d5fbec3fba8)
+
+# 04 - Atualização do Diagrama de classe
+
+![Diagrama UML- Grupo Alemão](https://github.com/DisciplinasProgramacao/lpm-projeto2024-1-grupo-do-alemao/assets/144834971/2ec59ece-29b6-49eb-80b9-5e20824d1f78)
