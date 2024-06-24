@@ -89,28 +89,40 @@ public class Main {
         System.out.println("4 - Encerrar Mesa");
         System.out.println("5 - Processar Fila");
         System.out.println("6 - Adicionar Produtos");
-        System.out.println("7 - Fechar Conta da Mesa");
-        System.out.println("8 - Exibir Cardápios");
+        System.out.println("7 - Exibir Menu de Produtos");
+        System.out.println("8 - Fechar Conta da Mesa");
+        System.out.println("9 - Exibir Cardápios");
         System.out.println("0 - Sair");
         System.out.print("Digite sua Opção: ");
     }
 
-    /**
-     * Mostra o status de todas as mesas do restaurante.
-     * @param restaurante O restaurante cujas mesas serão verificadas.
-     */
-    private static void verificarMesas(Restaurante restaurante) {
-
-        for (Mesa mesa : Restaurante.mesas) {
-            if (mesa.getCliente() == null) {
-                System.out.println("Mesa " + mesa.getCod() + " - Capacidade: " + mesa.getCapacidade() + " - "
-                    + (mesa.estaDisponivel(0) ? "Disponível" : "Ocupada"));
+/**
+ * Mostra o status de todas as mesas do restaurante.
+ * @param restaurante O restaurante cujas mesas serão verificadas.
+ */
+private static void verificarMesas(Restaurante restaurante) {
+    for (Mesa mesa : Restaurante.mesas) {
+        if (mesa.getCliente() == null) {
+            System.out.println("Mesa " + mesa.getCod() + " - Capacidade: " + mesa.getCapacidade() + " - " +
+                (mesa.estaDisponivel(0) ? "Disponível" : "Ocupada") + " - Sem pedido registrado");
+        } else {
+            Pedido pedido = mesa.getPedido();
+            System.out.println("Mesa " + mesa.getCod() + " - Capacidade: " + mesa.getCapacidade() + " - " +
+                (mesa.estaDisponivel(0) ? "Disponível" : "Ocupada") + " - Cliente alocado: " + mesa.getCliente().getNome());
+            
+            if (pedido != null) {
+                System.out.println("  Produtos no pedido:");
+                for (Produto produto : pedido.getProdutos()) {
+                    System.out.println("    - " + produto.getNome());
+                }
             } else {
-                System.out.println("Mesa " + mesa.getCod() + " - Capacidade: " + mesa.getCapacidade() + " - "
-                    + (mesa.estaDisponivel(0) ? "Disponível" : "Ocupada") + " - Cliente alocado: " + mesa.getCliente().getNome());
+                System.out.println("  Sem pedido registrado.");
             }
         }
+        System.out.println(); // Adiciona uma linha em branco entre as mesas para melhorar a legibilidade
     }
+}
+
 
     /**
      * Mostra o status da fila de espera do restaurante.
@@ -164,7 +176,7 @@ public class Main {
                 System.out.print("Deseja um menu fechado? (s/n): ");
                 String menuFechadoOpcao = scanner.nextLine();
 
-                Pedido pedido = new PedidoFechado(numPessoas); 
+                Pedido pedido = new Pedido(); 
 
                 if (menuFechadoOpcao.equalsIgnoreCase("s")) {
                     for (Produto produto : menuFechado.getProduto()) {
@@ -175,7 +187,6 @@ public class Main {
                 }
 
                 RequisicaoReserva requisicao = new RequisicaoReserva(numPessoas, cliente, mesaDisponivel);
-                requisicao.setPedido(pedido);
                 restaurante.alocarMesa(requisicao);
                 System.out.println("Mesa " + mesaDisponivel.getCod() + " alocada com sucesso para " + numPessoas + " pessoas.");
             } else {
@@ -242,7 +253,7 @@ public class Main {
 
             Cliente cliente = new Cliente(nomeCliente);
 
-            Mesa mesa = new Mesa(codMesa, pessoas, true, cliente);
+            Mesa mesa = new Mesa(codMesa, pessoas, true, cliente, null);
 
             RequisicaoReserva requisicao = new RequisicaoReserva(pessoas, cliente, mesa);
 
@@ -257,83 +268,114 @@ public class Main {
     }
 
     /**
-     * Adiciona produtos ao pedido do cliente.
-     * 
-     * @param scanner    O scanner de entrada.
-     * @param restaurante O restaurante onde o pedido será adicionado.
-     */
-    private static void adicionarProdutos(Scanner scanner, Restaurante restaurante) throws GlobalExceptions, Exception {
-        try {
-            System.out.println("Escolha os produtos:");
-            System.out.println(menu.mostrarMenu());
+ * Adiciona produtos ao pedido do cliente.
+ * 
+ * @param scanner    O scanner de entrada.
+ * @param restaurante O restaurante onde o pedido será adicionado.
+ */
+/**
+ * Adiciona produtos ao pedido do cliente e associa o pedido à mesa.
+ * 
+ * @param scanner    O scanner de entrada.
+ * @param restaurante O restaurante onde o pedido será adicionado.
+ */
+private static void adicionarProdutos(Scanner scanner, Restaurante restaurante) throws GlobalExceptions, Exception {
+    try {
+        System.out.println("Escolha os produtos:");
+        System.out.println(menu.mostrarMenu());
 
-            System.out.print("Digite o número do produto que deseja adicionar ao pedido (0 para finalizar): ");
-            int opcaoProduto = scanner.nextInt();
-            scanner.nextLine(); 
+        System.out.print("Digite o número do produto que deseja adicionar ao pedido (0 para finalizar): ");
+        int opcaoProduto = scanner.nextInt();
+        scanner.nextLine(); 
 
-            Pedido pedido = new Pedido(); // Cria um novo pedido
+        Pedido pedido = new Pedido(); // Cria um novo pedido
 
-            while (opcaoProduto != 0) {
-                Produto produto = menu.getProduto(opcaoProduto); // Obtém o produto selecionado
-                if (produto != null) {
-                    pedido.addProduto(produto); // Adiciona o produto ao pedido
-                    System.out.println("Produto adicionado ao pedido: " + produto.getNome());
-                } else {
-                    System.out.println("Produto não encontrado. Por favor, escolha um produto válido.");
-                }
-
-                System.out.print("Digite o número do próximo produto (0 para finalizar): ");
-                opcaoProduto = scanner.nextInt();
-                scanner.nextLine(); 
-              
+        while (opcaoProduto != 0) {
+            Produto produto = menu.getProduto(opcaoProduto); // Obtém o produto selecionado
+            if (produto != null) {
+                restaurante.adicionarProdutoAoPedido(pedido, produto);
+                System.out.println("Produto adicionado ao pedido: " + produto.getNome());
+            } else {
+                System.out.println("Produto não encontrado. Por favor, escolha um produto válido.");
             }
 
+            System.out.print("Digite o número do próximo produto (0 para finalizar): ");
+            opcaoProduto = scanner.nextInt();
+            scanner.nextLine(); 
+        }
+
+        // Verifica se o pedido não está vazio antes de fechá-lo
+        if (!pedido.getProdutos().isEmpty()) {
             double[] totalConta = pedido.fecharPedido(1);
             System.out.println("Total do pedido: R$" + totalConta[0]);
-        } catch (InputMismatchException e) {
-            System.out.println("Entrada inválida. Por favor, insira um número.");
-            scanner.nextLine(); 
-        } catch (Exception e) {
-            System.out.println("Erro ao adicionar produtos: " + e.getMessage());
-            scanner.nextLine(); 
-        }
-    }
-    
-    /**
-     * Fecha a conta da mesa.
-     * 
-     * @param scanner O scanner de entrada.
-     * @param restaurante O restaurante onde a conta será fechada.
-     */
-    private static void fecharConta(Scanner scanner, Restaurante restaurante) throws Exception{
-        try {
-            System.out.print("Digite o código da mesa para fechar a conta: ");
-            int codMesa = scanner.nextInt();
-            scanner.nextLine();
 
-            Mesa mesa = restaurante.getMesaByCodigo(codMesa);
+            // Solicitar e associar o pedido à mesa
+            boolean mesaEncontrada = false;
+            while (!mesaEncontrada) {
+                System.out.print("Digite o código da mesa para associar o pedido: ");
+                int codMesa = scanner.nextInt();
+                scanner.nextLine();
 
-            if (mesa != null && !mesa.estaDisponivel(0)) {
-                Pedido pedido = mesa.getPedido();
-                if (pedido != null) {
-                    double[] totalConta = pedido.fecharPedido(mesa.getCapacidade());
-                    System.out.println("Total da conta da Mesa " + codMesa + ": R$" + totalConta[0]);
+                Mesa mesa = restaurante.getMesaByCodigo(codMesa);
 
-                    mesa.liberar();
+                if (mesa != null && !mesa.estaDisponivel(0)) {
+                    mesa.setPedido(pedido);
+                    System.out.println("Pedido associado à Mesa " + codMesa + " com sucesso.");
+                    mesaEncontrada = true; // Mesa encontrada e pedido associado com sucesso, sair do loop
                 } else {
-                    System.out.println("Não há pedidos registrados para a Mesa " + codMesa);
+                    System.out.println("Mesa não encontrada ou não está ocupada. Tente novamente.");
                 }
-            } else {
-                System.out.println("Mesa não encontrada ou não está ocupada.");
             }
-        } catch (InputMismatchException e) {
-            System.out.println("Código de mesa inválido. Por favor, insira um número.");
-            scanner.nextLine(); 
-        } catch (Exception e) {
-            System.out.println("Erro ao fechar conta: " + e.getMessage());
-            scanner.nextLine(); 
+        } else {
+            System.out.println("Pedido vazio. Nenhum produto foi adicionado.");
         }
+
+    } catch (InputMismatchException e) {
+        System.out.println("Entrada inválida. Por favor, insira um número.");
+        scanner.nextLine(); 
+    } catch (Exception e) {
+        System.out.println("Erro ao adicionar produtos: " + e.getMessage());
+        scanner.nextLine(); 
     }
+}
+
+
+    /**
+ * Fecha a conta da mesa.
+ * 
+ * @param scanner O scanner de entrada.
+ * @param restaurante O restaurante onde a conta será fechada.
+ */
+private static void fecharConta(Scanner scanner, Restaurante restaurante) {
+    try {
+        System.out.print("Digite o código da mesa para fechar a conta: ");
+        int codMesa = scanner.nextInt();
+        scanner.nextLine();
+
+        Mesa mesa = restaurante.getMesaByCodigo(codMesa);
+
+        if (mesa != null && !mesa.estaDisponivel(0)) {
+            Pedido pedido = mesa.getPedido();
+            if (pedido != null) {
+                double[] totalConta = pedido.fecharPedido(mesa.getCapacidade());
+                System.out.println("Total da conta da Mesa " + codMesa + ": R$" + totalConta[0]);
+
+                // Remover o pedido associado à mesa após fechar a conta
+                mesa.removerPedido();
+            } else {
+                System.out.println("Não há pedidos registrados para a Mesa " + codMesa);
+            }
+        } else {
+            System.out.println("Mesa não encontrada ou não está ocupada.");
+        }
+    } catch (InputMismatchException e) {
+        System.out.println("Código de mesa inválido. Por favor, insira um número.");
+        scanner.nextLine(); 
+    } catch (Exception e) {
+        System.out.println("Erro ao fechar conta: " + e.getMessage());
+        scanner.nextLine(); 
+    }
+}
 
     /**
      * Exibe os cardápios disponíveis, incluindo o menu fechado.

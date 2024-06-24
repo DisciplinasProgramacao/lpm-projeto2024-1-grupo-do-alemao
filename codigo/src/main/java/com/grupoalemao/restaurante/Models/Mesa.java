@@ -28,7 +28,7 @@ public class Mesa {
     @Column(nullable = false)
     private boolean disponivel;
 
-    @OneToOne(mappedBy = "mesa", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToOne(mappedBy = "pedido", cascade = CascadeType.ALL, orphanRemoval = true)
     private Pedido pedido;
 
     /**
@@ -45,11 +45,12 @@ public class Mesa {
      * @param disponivel Boolean indicando se a mesa está disponível.
      * @param cliente    O cliente associado à mesa.
      */
-    public Mesa(int cod, int capacidade, boolean disponivel, Cliente cliente) {
+    public Mesa(int cod, int capacidade, boolean disponivel, Cliente cliente,Pedido pedido) {
         this.cod = cod;
         setCapacidade(capacidade);
         this.disponivel = disponivel;
         this.cliente = cliente;
+        this.pedido = pedido;
     }
 
     /**
@@ -93,9 +94,7 @@ public class Mesa {
      *
      * @return O pedido associado à mesa.
      */
-    public Pedido getPedido() {
-        return pedido;
-    }
+
 
     /**
      * Define a capacidade da mesa.
@@ -170,4 +169,33 @@ public class Mesa {
         this.cliente = null;
         pessoas.clear();
     }
+
+    public void setCod(int cod) {
+        this.cod = cod;
+    }
+
+    public List<RequisicaoReserva> getPessoas() {
+        return pessoas;
+    }
+
+    public void setPessoas(List<RequisicaoReserva> pessoas) {
+        this.pessoas = pessoas;
+    }
+
+    public boolean isDisponivel() {
+        return disponivel;
+    }
+
+    public Pedido getPedido() {
+        return pedido;
+    }
+
+    public void setPedido(Pedido pedido) {
+        this.pedido = pedido;
+    }
+
+    public void removerPedido() {
+        this.pedido = null;
+    }
+
 }

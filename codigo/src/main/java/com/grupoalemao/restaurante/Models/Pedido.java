@@ -19,12 +19,23 @@ public class Pedido {
     @OneToOne
     @JoinColumn(name = "mesa_id")
     private Mesa mesa;
+    /**
+     * Obtém a mesa associada ao pedido.
+     * 
+     * @return A mesa associada ao pedido.
+     */
+    public Mesa getMesa() {
+        return mesa;
+    }
 
     /**
-     * Construtor da classe Pedido.
-     * Inicializa a lista de produtos do pedido.
+     * Define a mesa associada ao pedido.
+     * 
+     * @param mesa A mesa a ser associada ao pedido.
+     * 
      */
-    public Pedido() {
+    public void setMesa(Mesa mesa) {
+        this.mesa = mesa;
     }
 
     /**
@@ -87,5 +98,13 @@ public class Pedido {
     public void removerProduto(Integer produtoId) {
 
         throw new UnsupportedOperationException("Unimplemented method 'removerProduto'");
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setProdutos(List<Produto> produtos) {
+        this.produtos = produtos;
     }
 }

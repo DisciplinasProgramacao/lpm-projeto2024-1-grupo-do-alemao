@@ -18,9 +18,43 @@ public class Restaurante {
     static List<Mesa> mesas = new ArrayList<>();
     FilaDeEspera filaDeEspera = new FilaDeEspera();
     List<Cliente> clientes = new ArrayList<>();
+    private Menu menu;
     //#endregion
 
     // Não há necessidade de um construtor, por isso não foi implementado
+    // Construtor sem argumentos
+    public Restaurante() {
+        // Inicialize os atributos do objeto aqui, se necessário
+    }
+
+    public Pedido criarPedido(Mesa mesa, List<Integer> produtoIds) throws GlobalExceptions {
+        Pedido pedido = new Pedido();
+        pedido.setMesa(mesa);
+        
+        for (int produtoId : produtoIds) {
+            Produto produto = menu.getProduto(produtoId);
+            if (produto != null) {
+                pedido.addProduto(produto);
+            } else {
+                throw new GlobalExceptions("Produto não encontrado no menu.");
+            }
+        }
+        return pedido;
+    }
+
+    // Adiciona um produto ao pedido específico
+    public void adicionarProdutoAoPedido(Pedido pedido, Produto produto) throws GlobalExceptions {
+        
+        if (produto != null) {
+            pedido.addProduto(produto);
+        } else {
+            throw new GlobalExceptions("Produto não encontrado no menu.");
+        }
+    }
+
+    public void exibirMenu() {
+        System.out.println(menu.mostrarMenu());
+    }
 
     //#region métodos
 
@@ -54,8 +88,8 @@ public class Restaurante {
      * @param disponivel A disponibilidade da mesa.
      * @param cliente    O cliente que está ocupando a mesa, ou null se não estiver ocupada.
      */
-    public void adicionarMesa(int cod, int capacidade, boolean disponivel, Cliente cliente) {
-        Mesa mesa = new Mesa(cod, capacidade, disponivel, cliente);
+    public void adicionarMesa(int cod, int capacidade, boolean disponivel, Cliente cliente, Pedido pedido) {
+        Mesa mesa = new Mesa(cod, capacidade, disponivel, cliente, pedido);
         mesas.add(mesa);
     }
 
@@ -112,16 +146,16 @@ public class Restaurante {
      * Inicializa as mesas com todos os dados fornecidos de acordo com o requisito do trabalho: o código, a capacidade e se está disponível.
      */
     public static void inicializaMesas() {
-        mesas.add(new Mesa(1, 4, true, null));
-        mesas.add(new Mesa(2, 4, true, null));
-        mesas.add(new Mesa(3, 4, true, null));
-        mesas.add(new Mesa(4, 4, true, null));
-        mesas.add(new Mesa(5, 6, true, null));
-        mesas.add(new Mesa(6, 6, true, null));
-        mesas.add(new Mesa(7, 6, true, null));
-        mesas.add(new Mesa(8, 6, true, null));
-        mesas.add(new Mesa(9, 8, true, null));
-        mesas.add(new Mesa(10, 8, true, null));
+        mesas.add(new Mesa(1, 4, true, null, null));
+        mesas.add(new Mesa(2, 4, true, null, null));
+        mesas.add(new Mesa(3, 4, true, null, null));
+        mesas.add(new Mesa(4, 4, true, null, null));
+        mesas.add(new Mesa(5, 6, true, null, null));
+        mesas.add(new Mesa(6, 6, true, null, null));
+        mesas.add(new Mesa(7, 6, true, null, null));
+        mesas.add(new Mesa(8, 6, true, null, null));
+        mesas.add(new Mesa(9, 8, true, null, null));
+        mesas.add(new Mesa(10, 8, true, null, null));
     }
 
     /**
@@ -136,5 +170,6 @@ public class Restaurante {
                 .findFirst()
                 .orElse(null);
     }
+    
     //#endregion
 }
