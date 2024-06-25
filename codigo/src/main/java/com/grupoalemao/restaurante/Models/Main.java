@@ -7,29 +7,22 @@ import java.util.Scanner;
 import com.grupoalemao.restaurante.exceptions.GlobalExceptions;
 
 public class Main {
-    // Objeto da classe Menu para lidar com as opções de produtos
     static Menu menu = new Menu();
     static MenuFechado menuFechado = new MenuFechado();
 
-    /**
-     * Método principal que inicia a aplicação do restaurante.
-     * 
-     * @param args Os argumentos de linha de comando (não usados).
-     */
-    public static void main(String[] args) throws GlobalExceptions{
+    public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         Restaurante restaurante = new Restaurante();
         boolean sair = false;
 
         Restaurante.inicializaMesas();
 
-        // Loop principal para exibir o menu e lidar com as opções do usuário
         while (!sair) {
-            exibirMenu();
+            exibirMenuOpcoes();
             try {
                 int opcao = scanner.nextInt();
-                scanner.nextLine(); 
-
+                scanner.nextLine(); // Limpar o buffer
+                
                 switch (opcao) {
                     case 1:
                         verificarMesas(restaurante);
@@ -58,6 +51,7 @@ public class Main {
                     case 0:
                         sair = true;
                         scanner.close();
+                        System.out.println("Saindo do programa. Até mais!");
                         break;
                     default:
                         System.out.println("Opção inválida. Por favor, escolha uma opção válida.");
@@ -65,35 +59,36 @@ public class Main {
                 }
             } catch (InputMismatchException e) {
                 System.out.println("Entrada inválida. Por favor, insira um número.");
-                scanner.nextLine(); 
+                scanner.nextLine(); // Limpar o buffer
             } catch (NoSuchElementException e) {
                 System.out.println("Nenhum elemento encontrado. Verifique a entrada e tente novamente.");
-                scanner.nextLine(); 
+                scanner.nextLine(); // Limpar o buffer
             } catch (IllegalArgumentException e) {
                 System.out.println("Argumento inválido: " + e.getMessage());
-                scanner.nextLine(); 
+                scanner.nextLine(); // Limpar o buffer
             } catch (Exception e) {
                 System.out.println("Erro inesperado: " + e.getMessage());
-                scanner.nextLine(); 
+                scanner.nextLine(); // Limpar o buffer
             }
         }
     }
 
-    /**
-     * Exibe o menu de opções.
-     */
-    private static void exibirMenu() {
+    private static void exibirMenuOpcoes() {
+        System.out.println("Escolha uma opção:");
         System.out.println("1 - Verificar mesas");
-        System.out.println("2 - Verificar Fila");
-        System.out.println("3 - Solicitar Mesa");
-        System.out.println("4 - Encerrar Mesa");
-        System.out.println("5 - Processar Fila");
-        System.out.println("6 - Adicionar Produtos");
-        System.out.println("7 - Exibir Menu de Produtos");
-        System.out.println("8 - Fechar Conta da Mesa");
-        System.out.println("9 - Exibir Cardápios");
+        System.out.println("2 - Verificar fila de espera");
+        System.out.println("3 - Solicitar mesa");
+        System.out.println("4 - Encerrar mesa");
+        System.out.println("5 - Processar fila de espera");
+        System.out.println("6 - Adicionar produtos ao pedido");
+        System.out.println("7 - Fechar conta da mesa");
+        System.out.println("8 - Exibir cardápios");
         System.out.println("0 - Sair");
-        System.out.print("Digite sua Opção: ");
+        System.out.print("Digite sua opção: ");
+    }
+
+    private static void exibirMenuProdutos() {
+        System.out.println(menu.mostrarMenu());
     }
 
 /**
