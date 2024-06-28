@@ -58,11 +58,10 @@ Main - em outro branch - adicionando produto ao pedido mas não a requisições.
 
 ### Commit 7aaa606 (em 10/06)
 Correções:
-    
-    Menu, com case repetido - gerar x retornar produto 
-    Pedido ok
-    Cliente controller com lista
-    Pedido controller com lista
+  - Menu ok, com case repetido - gerar x retornar produto - Maíra
+  - Pedido ok
+  - Cliente controller com lista
+  - Pedido controller com lista
 
 Diagrama com Pedido, sem relação com requisições - Todos - 5,5
 
@@ -70,7 +69,7 @@ Menu fechado em outro commit - getProduto x gerarProduto - Thais - 10
 
 Produtos - Barbara - 14
 
-Restaurante sem cardápio nem métodos para pedidos - Joao - 0 
+Restaurante sem cardápio nem métodos para pedidos - Joao - 4 *REVISADO POR ENTREGA POSTERIOR* 
 
 Mesa controller com set para tudo - Maira - 11
 
