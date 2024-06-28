@@ -77,3 +77,32 @@ Mesa controller com set para tudo - Maira - 11
 Requisicao controller com set para tudo - Maira - 11 
 
 Main em commit posterior - duas variáveis para menu - adicionando produtos sem perguntar ao usuário - fazendo get para dados - Marcos - 9
+
+## Sprint 4 - Apresentação em 24/06
+  - Nota de grupo 3,6/6 pontos
+	- Modelo - relação entre pedido e requisicoes. Sem classe abstrata.
+	- Apresentação - muitos métodos com problemas.
+	
+  - Nota individual (14 pontos)
+    - Ajustes do último quadro "Projeto GitHub"
+    - Correções das sprints anteriores
+
+### Commits SP4
+
+PedidoFechado (Thais) - ok, porém "isComida" e "isBebida" não é uma boa solução modular. 8,5
+
+MenuFechado (Barbara) - getcategoria ferindo modularidade. 'contem' deve ser feito usando colecoes 8,5
+
+Requisicao (Rebecca) - lanca exceção sem fazer a operacao
+
+Correcao Controllers (Rebecca) - ok 10 
+
+Main (Marcos) - fazendo for em dados do restaurante. gets em sequencia. pedido sem ligação com a requisição. não mostra conta. 7
+
+Controllers+Limpeza (maira) - ok 14
+
+Cliente (Joao) - "GlobalExceptions", lançando exceção no main sem tratar. 
+
+Restaurante (Joao) - executando logiva de mesa no restaurante (deve chamar requisicao). Ainda sem métodos para pedidos.
+
+Controllers ok (Joao) 10
