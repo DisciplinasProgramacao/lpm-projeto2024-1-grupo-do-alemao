@@ -11,7 +11,7 @@
 ### Commit f5ea07 (primeiro com tudo no master, em 27/04)	
 Diagrama ok - Todos - 8
 
-Cliente sem testes - Barbara 10 
+Cliente sem testes - Barbara 12 *revisado*
 
 Fila sem testes - Thais - 10
 
