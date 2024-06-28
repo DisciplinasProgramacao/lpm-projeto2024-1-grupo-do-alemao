@@ -9,10 +9,10 @@ public class CopoDeSuco extends Produto {
     /**
      * Método para identificar o tipo do produto.
      * 
-     * @return True se for do tipo copo de suco, false caso contrário.
+     * @return O tipo do produto.
      */
     @Override
-    public boolean isCopoDeSuco() {
-        return true;
+    public String getCategoria() {
+        return "Copo de suco";
     }
 }

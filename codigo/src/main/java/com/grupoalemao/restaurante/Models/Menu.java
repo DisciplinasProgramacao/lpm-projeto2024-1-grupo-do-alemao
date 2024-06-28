@@ -22,13 +22,15 @@ public class Menu {
         produtos = new Produto[12];
         for(int i=1; i<=11;i++)
             gerarProduto(i);
+
+            
     }
 
     // #endregion
 
     /**
      * Método para recuperar um produto de determinada posição do array de produtos.
-     * @param pos A posição da qual se quer obter o produto.
+     * @param pos 
      * @return Produto, caso tenha sido encontrado, null, caso não.
      */
     public Produto getProduto(int pos){

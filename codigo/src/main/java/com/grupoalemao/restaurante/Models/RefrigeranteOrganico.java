@@ -9,10 +9,10 @@ public class RefrigeranteOrganico extends Produto {
     /**
      * Método para identificar o tipo do produto.
      * 
-     * @return True se for do tipo refrigerante, false caso contrário.
+     * @return O tipo do produto.
      */
     @Override
-    public boolean isRefrigeranteOrganico() {
-        return true;
+    public String getCategoria() {
+        return "Refrigerante Orgânico";
     }
 }

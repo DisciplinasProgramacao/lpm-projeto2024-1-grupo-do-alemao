@@ -19,12 +19,32 @@ public class Pedido {
     @OneToOne
     @JoinColumn(name = "mesa_id")
     private Mesa mesa;
+    /**
+     * Obtém a mesa associada ao pedido.
+     * 
+     * @return A mesa associada ao pedido.
+     */
+    public Mesa getMesa() {
+        return mesa;
+    }
 
     /**
-     * Construtor da classe Pedido.
-     * Inicializa a lista de produtos do pedido.
+     * Define a mesa associada ao pedido.
+     * 
+     * @param mesa A mesa a ser associada ao pedido.
+     * 
      */
-    public Pedido() {
+    public void setMesa(Mesa mesa) {
+        this.mesa = mesa;
+    }
+
+    /**
+     * Obtém o ID do pedido.
+     * 
+     * @return O ID do pedido.
+     */
+    public Long getId() {
+        return id;
     }
 
     /**
@@ -75,39 +95,16 @@ public class Pedido {
         return new double[] { totalComTaxa, valorPorPessoa };
     }
 
-    /**
-     * Obtém a mesa associada a este pedido.
-     * 
-     * @return A mesa associada a este pedido.
-     */
-    public Mesa getMesa() {
-        return mesa;
+    public void removerProduto(Integer produtoId) {
+
+        throw new UnsupportedOperationException("Unimplemented method 'removerProduto'");
     }
 
-    /**
-     * Define a mesa associada a este pedido.
-     * 
-     * @param mesa A mesa a ser associada a este pedido.
-     */
-    public void setMesa(Mesa mesa) {
-        this.mesa = mesa;
-    }
-
-    /**
-     * Obtém o ID do pedido.
-     * 
-     * @return O ID do pedido.
-     */
-    public Long getId() {
-        return id;
-    }
-
-    /**
-     * Define o ID do pedido.
-     * 
-     * @param id O ID a ser definido.
-     */
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public void setProdutos(List<Produto> produtos) {
+        this.produtos = produtos;
     }
 }

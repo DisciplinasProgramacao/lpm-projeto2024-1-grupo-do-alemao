@@ -28,8 +28,9 @@ public class Mesa {
     @Column(nullable = false)
     private boolean disponivel;
 
-    @OneToOne(mappedBy = "mesa", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToOne(mappedBy = "pedido", cascade = CascadeType.ALL, orphanRemoval = true)
     private Pedido pedido;
+
 
     /**
      * Construtor padrão da classe Mesa.
@@ -45,11 +46,12 @@ public class Mesa {
      * @param disponivel Boolean indicando se a mesa está disponível.
      * @param cliente    O cliente associado à mesa.
      */
-    public Mesa(int cod, int capacidade, boolean disponivel, Cliente cliente) {
+    public Mesa(int cod, int capacidade, boolean disponivel, Cliente cliente,Pedido pedido) {
         this.cod = cod;
         setCapacidade(capacidade);
         this.disponivel = disponivel;
         this.cliente = cliente;
+        this.pedido = pedido;
     }
 
     /**
@@ -93,9 +95,7 @@ public class Mesa {
      *
      * @return O pedido associado à mesa.
      */
-    public Pedido getPedido() {
-        return pedido;
-    }
+
 
     /**
      * Define a capacidade da mesa.
@@ -130,19 +130,11 @@ public class Mesa {
     }
 
     /**
-     * Define o pedido associado à mesa.
-     *
-     * @param pedido O pedido associado à mesa.
-     */
-    public void setPedido(Pedido pedido) {
-        this.pedido = pedido;
-    }
-
-    /**
      * Muda o status da mesa para ocupada ou desocupada.
      *
      * @param cliente O cliente que ocupará a mesa.
-     * @return true se a mesa estava disponível antes da mudança, false caso contrário.
+     * @return true se a mesa estava disponível antes da mudança, false caso
+     *         contrário.
      */
     public boolean mudarStatusMesa(Cliente cliente) {
         boolean estavaDisponivel = estaDisponivel(0);
@@ -163,12 +155,13 @@ public class Mesa {
      * Verifica se a mesa está disponível para um número específico de pessoas.
      *
      * @param pessoas O número de pessoas.
-     * @return true se a mesa estiver disponível para o número de pessoas especificado, false caso contrário.
+     * @return true se a mesa estiver disponível para o número de pessoas
+     *         especificado, false caso contrário.
      */
     public boolean estaDisponivel(int pessoas) {
         return pessoas <= capacidade && cliente == null;
     }
-    
+
     /**
      * Libera a mesa, tornando-a disponível para uso.
      */
@@ -177,4 +170,33 @@ public class Mesa {
         this.cliente = null;
         pessoas.clear();
     }
+
+    public void setCod(int cod) {
+        this.cod = cod;
+    }
+
+    public List<RequisicaoReserva> getPessoas() {
+        return pessoas;
+    }
+
+    public void setPessoas(List<RequisicaoReserva> pessoas) {
+        this.pessoas = pessoas;
+    }
+
+    public boolean isDisponivel() {
+        return disponivel;
+    }
+
+    public Pedido getPedido() {
+        return pedido;
+    }
+
+    public void setPedido(Pedido pedido) {
+        this.pedido = pedido;
+    }
+
+    public void removerPedido() {
+        this.pedido = null;
+    }
+
 }

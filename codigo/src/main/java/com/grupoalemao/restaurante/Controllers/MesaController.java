@@ -50,23 +50,7 @@ public class MesaController {
         return mesaRepository.save(mesa);
     }
 
-    /**
-     * Atualiza uma mesa existente com base no ID fornecido.
-     * @param id o ID da mesa a ser atualizada.
-     * @param mesaDetails o objeto Mesa com os detalhes atualizados.
-     * @return a mesa atualizada ou uma resposta de não encontrado.
-     */
-    @PutMapping("/{id}")
-    public ResponseEntity<Mesa> updateMesa(@PathVariable Integer id, @RequestBody Mesa mesaDetails) {
-        return mesaRepository.findById(id)
-                .map(mesa -> {
-                    mesa.setCapacidade(mesaDetails.getCapacidade());
-                    mesa.setCliente(mesaDetails.getCliente());
-                    mesa.setDisponivel(mesaDetails.estaDisponivel(mesaDetails.getCapacidade()));
-                    Mesa updatedMesa = mesaRepository.save(mesa);
-                    return ResponseEntity.ok(updatedMesa);
-                }).orElse(ResponseEntity.notFound().build());
-    }
+    
     
     
 }
