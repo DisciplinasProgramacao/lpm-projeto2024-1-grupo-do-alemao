@@ -43,7 +43,8 @@ Sem cardápio - encontrado em commit posterior - Thais - 9
 
 Sem pedido - encontrado em commit posterior - Maíra - 10
 
-Controller cliente, pedido - encontrado em commit posterior - Rebecca - 7
+**REVISADO** Controller cliente, pedido - encontrado em commit posterior (178ad5ddc e d70938b3) 
+- Commits de 16/06, já dentro da data da Sprint 4. Nota considerada como entrega em atraso, portanto 50% - Rebecca - 7
 
 Requisição em outro branch - Bárbara - 12
 
@@ -70,9 +71,15 @@ Diagrama com Pedido, sem relação com requisições - Todos - 5,5
 
 Menu fechado em outro commit - getProduto x gerarProduto - Thais - 10
 
-Produtos - Barbara - 14
+Pedido - Bárbara - get desnecessário nos produtos - 12
 
-Restaurante sem cardápio nem métodos para pedidos - Joao - 4 *REVISADO POR ENTREGA POSTERIOR* 
+**REVISADO**
+Produtos - 
+- A classe Produto era atribuição da Rebecca. Por decisão do grupo, foram feitas as heranças para os produtos (todas classes simples, apenas com construtor de cada produto). Por outra decisão própria, a tarefa foi dividida entre Rebecca e Bárbara (que tinha outra atribuição). Tratava-se de uma tarefa simples, que deveria ser realizada por uma pessoa. Assim, a decisão da revisão é por dividir os 14 pontos entre as alunas
+- Rebecca: 7 // Bárbara: 7
+
+
+Restaurante sem cardápio nem métodos para pedidos - Joao - 4 **REVISADO POR ENTREGA POSTERIOR** 
 
 Mesa controller com set para tudo - Maira - 11
 
