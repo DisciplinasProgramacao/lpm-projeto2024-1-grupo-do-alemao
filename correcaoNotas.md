@@ -19,7 +19,10 @@ Main - Marcos - 12
 
 Mesa sem testes - Maíra - 10
 
-Reserva sem lógica de classes, sem testes - Rebecca - 6
+**REVISADO** , commits 2139d18 e 9dc71d5
+- Reserva sem lógica de classes, apenas atribuição de dados. Sem validação em construtor e métodos, sem documentação
+- Reserva não tem pertiência com o projeto - nome do item?! Falta cliente, falta mesa...  
+- Com a classe mal feita, os testes não teriam como ser bons. Testes para livro e computador?! Para além disso: um único teste para várias coisas e sem testar situações de validação (dados incorretos). A nota está mantida como 6 (50%) porque a entrega em atraso é melhor que esta (que daria no máximo 33% da nota) - Rebecca - 6
 
 Restaurante sem testes - João - 8 
 
